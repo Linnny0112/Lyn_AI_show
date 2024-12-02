@@ -13,10 +13,10 @@
          font-family: "Times New Roman", serif;
          margin: 0;
          padding: 0;
+         text-align: center; /* 全局内容居中 */
       }
 
       h1, h2, h3, h4, h5, h6 {
-         text-align: center;
          margin: 20px 0;
          text-shadow: 2px 2px 5px #000000;
       }
@@ -24,6 +24,7 @@
       h1 {
          font-size: 3em;
          color: #ffd700;
+         text-transform: uppercase; /* 大写标题 */
       }
 
       h2 {
@@ -42,29 +43,41 @@
       }
 
       div {
-         background-color: rgba(0, 0, 0, 0.5);
+         background-color: rgba(0, 0, 0, 0.6);
          border-radius: 10px;
          padding: 20px;
          margin: 20px auto;
          max-width: 800px;
          box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+         display: inline-block; /* 居中块元素 */
+         text-align: center;
       }
 
       ul, ol {
-         margin: 20px 40px;
+         margin: 20px auto;
+         padding: 0;
+         list-style-position: inside;
+         max-width: 600px;
       }
 
       ul li, ol li {
          margin-bottom: 10px;
+         font-size: 1.2em;
+      }
+
+      dl {
+         text-align: center;
       }
 
       dl dt {
          font-weight: bold;
          color: #99ccff;
+         margin-top: 10px;
       }
 
       dl dd {
-         margin-left: 20px;
+         margin-left: 0;
+         font-size: 1.1em;
       }
 
       ruby rt {
@@ -93,6 +106,21 @@
       abbr {
          cursor: help;
          text-decoration: underline dotted;
+      }
+
+      footer {
+         margin-top: 30px;
+         background-color: rgba(0, 0, 0, 0.8);
+         padding: 20px;
+         border-radius: 10px;
+         max-width: 800px;
+         margin: 20px auto;
+         text-align: center;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+
+      footer small {
+         color: #bbbbbb;
       }
    </style>
 </head>

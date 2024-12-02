@@ -6,7 +6,7 @@
    <style>
       body {
          /* 使用背景图片 */
-         background-image: url('hogwarts.jpg'); /* 替换为你的霍格沃兹图片路径 */
+         background-image: url('background.jpg'); /* 替换为你的霍格沃兹图片路径 */
          background-size: cover; /* 让图片覆盖整个页面 */
          background-repeat: no-repeat; /* 不重复图片 */
          background-attachment: fixed; /* 背景固定，不随滚动移动 */
@@ -21,11 +21,20 @@
       ruby rt {
          font-size: 1.2em; /* 增大拼音字体大小 */
          color: #dddddd; /* 设置拼音为浅灰色 */
-         font-style: italic; /* 可以选择性地加斜体，更具美观 */
+         font-style: italic;
       }
 
       ruby {
          font-size: 1.5em; /* 增大整体字体大小 */
+      }
+
+      q {
+         font-style: italic; /* 引号内容为斜体 */
+      }
+
+      cite {
+         font-style: italic; /* 引用书籍为斜体 */
+         color: #cccccc; /* 设置颜色更浅 */
       }
    </style>
 </head>
@@ -43,17 +52,34 @@
    </strong>
    <dl>
       <dt><i>周一</i></dt>
-      <dd>变形术<br>魔法史</dd>
+      <dd>
+         <span style="color: #ffcc00;">变形术</span><br>
+         魔法史
+      </dd>
       <dt><i>周二</i></dt>
-      <dd>占卜术      <br>魔药课</dd>
+      <dd>
+         占卜术<br>
+         <span style="font-weight: bold; color: #99ccff;">魔药课</span>
+      </dd>
       <dt><i>周三</i></dt>
-      <dd>麻瓜研究    <br>黑魔法防御术</dd>
+      <dd>
+         麻瓜研究<br>
+         黑魔法防御术<sup>*</sup> 
+         <small><sub>(需提前准备)</sub></small>
+      </dd>
       <dt><i>周四</i></dt>
-      <dd>天文学      <br>神奇动物保护课</dd>
+      <dd>
+         天文学<br>
+         神奇动物保护课
+      </dd>
    </dl>
 </p>
 <p>
-   为什么只有<em>四天</em>的课？因为这个学校<mark>善</mark><br><small>教导主任不会告诉你其实是他周五忘记排课了</small>
+   关于学校的一段名言：<q>魔法的本质是发现并创造奇迹。</q> - <cite>《霍格沃兹校史》</cite>
+</p>
+<p>
+   为什么只有<em>四天</em>的课？因为这个学校<mark>善</mark><br>
+   <small>教导主任不会告诉你其实是他周五忘记排课了。</small>
 </p>
 </body>
 </html>

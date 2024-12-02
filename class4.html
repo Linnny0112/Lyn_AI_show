@@ -8,16 +8,20 @@
     body {
       font-family: Arial, sans-serif;
     }
-
     h1 {
       text-align: center;
     }
-
+   .card {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin: 20px auto;
+      width: 50%;
+      text-align: center;
+    }
     button {
       display: block;
       margin: 10px auto;
     }
-
     #result {
       text-align: center;
       font-weight: bold;
@@ -28,75 +32,51 @@
 
 <body>
   <h1>MBTI 测试</h1>
-  <button id="startButton">开始测试</button>
+  <div id="question1" class="card">
+    <p>当你参加社交活动时，你通常：</p>
+    <label><input type="radio" name="q1" value="主动与人交流">主动与人交流</label>
+    <label><input type="radio" name="q1" value="等待别人来交流">等待别人来交流</label>
+  </div>
+  <button id="next1">下一题</button>
+  <div id="question2" class="card" style="display:none;">
+    <p>对于做决策，你更倾向于：</p>
+    <label><input type="radio" name="q2" value="基于逻辑和分析">基于逻辑和分析</label>
+    <label><input type="radio" name="q2" value="考虑他人感受和价值观">考虑他人感受和价值观</label>
+  </div>
+  <button id="next2" style="display:none;">下一题</button>
+  <div id="question3" class="card" style="display:none;">
+    <p>在处理任务时，你：</p>
+    <label><input type="radio" name="q3" value="提前规划，有条不紊">提前规划，有条不紊</label>
+    <label><input type="radio" name="q3" value="灵活应变，随机处理">灵活应变，随机处理</label>
+  </div>
+  <button id="next3" style="display:none;">下一题</button>
+  <div id="question4" class="card" style="display:none;">
+    <p>你更喜欢独自工作还是团队合作？</p>
+    <label><input type="radio" name="q4" value="独自工作">独自工作</label>
+    <label><input type="radio" name="q4" value="团队合作">团队合作</label>
+  </div>
+  <button id="next4" style="display:none;">下一题</button>
+  <div id="question5" class="card" style="display:none;">
+    <p>你对新事物的态度是：</p>
+    <label><input type="radio" name="q5" value="积极尝试">积极尝试</label>
+    <label><input type="radio" name="q5" value="谨慎观望">谨慎观望</label>
+  </div>
+  <button id="submit" style="display:none;">提交</button>
   <div id="result"></div>
   <script>
-    let currentQuestion = 0;
-    const questions = [
-      {
-        type: "choice",
-        text: "当你参加社交活动时，你通常：",
-        options: ["主动与人交流", "等待别人来交流"]
-      },
-      {
-        type: "scale",
-        text: "请对以下描述进行打分（1-5 分）：你喜欢独自思考问题。",
-        min: 1,
-        max: 5
-      },
-      {
-        type: "choice",
-        text: "对于做决策，你更倾向于：",
-        options: ["基于逻辑和分析", "考虑他人感受和价值观"]
-      },
-      {
-        type: "sort",
-        text: "请将以下活动按照你的喜好进行排序（1 为最喜欢，3 为最不喜欢）：阅读、运动、社交",
-        options: ["阅读", "运动", "社交"]
-      },
-      {
-        type: "scale",
-        text: "请对以下描述进行打分（1-5 分）：你喜欢尝试新事物。",
-        min: 1,
-        max: 5
-      }
-    ];
-    const resultDiv = document.getElementById('result');
-    document.getElementById('startButton').addEventListener('click', showQuestion);
-
-    function showQuestion() {
-      document.getElementById('startButton').style.display = 'none';
-      if (currentQuestion < questions.length) {
-        if (questions[currentQuestion].type === "choice") {
-          const choice = window.prompt(questions[currentQuestion].text, "");
-          if (choice!== null) {
-            // 可以在这里存储答案，或者传递给其他函数处理
-            currentQuestion++;
-            showQuestion();
-          }
-        } else if (questions[currentQuestion].type === "scale") {
-          const scaleAnswer = parseInt(window.prompt(questions[currentQuestion].text, ""));
-          if (!isNaN(scaleAnswer) && scaleAnswer >= questions[currentQuestion].min && scaleAnswer <= questions[currentQuestion].max) {
-            // 存储答案或处理
-            currentQuestion++;
-            showQuestion();
-          }
-        } else if (questions[currentQuestion].type === "sort") {
-          const sortedOptions = window.prompt(questions[currentQuestion].text + "（请用逗号分隔答案）", "");
-          if (sortedOptions!== null) {
-            const answerArray = sortedOptions.split(',');
-            if (answerArray.length === questions[currentQuestion].options.length && answerArray.every(item => questions[currentQuestion].options.includes(item))) {
-              // 存储答案或处理
-              currentQuestion++;
-              showQuestion();
-            }
-          }
-        }
-      } else {
-        resultDiv.textContent = "测试完成！";
-      }
-    }
-  </script>
-</body>
-
-</html>
+    let currentQuestion = 1;
+    document.getElementById('next1').addEventListener('click', function () {
+      document.getElementById('question1').style.display = 'none';
+      document.getElementById('next1').style.display = 'none';
+      document.getElementById('question2').style.display = 'block';
+      document.getElementById('next2').style.display = 'block';
+      currentQuestion = 2;
+    });
+    document.getElementById('next2').addEventListener('click', function () {
+      document.getElementById('question2').style.display = 'none';
+      document.getElementById('next2').style.display = 'none';
+      document.getElementById('question3').style.display = 'block';
+      document.getElementById('next3').style.display = 'block';
+      currentQuestion = 3;
+    });
+    document.getElementById('next3').addEventListener('click',

@@ -7,8 +7,16 @@
 </head>
 <body>
     <h1>Button Click Example</h1>
-    <button type="button" onclick="console.log('button is clicked!')">
+    <button type="button" onclick="recordClick()">
         Show hint
     </button>
+    <p id="hint"></p> <!-- 用于显示点击记录的地方 -->
+
+    <script>
+        function recordClick() {
+            // 使用 document 来更新页面内容
+            document.getElementById("hint").textContent = "Button was clicked!";
+        }
+    </script>
 </body>
 </html>

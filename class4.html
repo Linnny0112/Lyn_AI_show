@@ -1,82 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-   .calculator {
-      border: 1px solid #ccc;
-      padding: 20px;
-      width: 300px;
-      margin: 20px auto;
-    }
-    input[type="number"] {
-      width: 100px;
-      margin: 5px;
-    }
-    button {
-      margin: 5px;
-    }
-    #result {
-      font-weight: bold;
-      margin-top: 10px;
-    }
-  </style>
-  <title>网页计算器</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简易计算器</title>
+    <style>
+        .calculator {
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .display {
+            width: 180px;
+            height: 30px;
+            margin-bottom: 10px;
+            font-size: 18px;
+            text-align: right;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+
+        .buttons button {
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #f9f9f9;
+        }
+
+        .buttons button:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
 </head>
-
 <body>
-  <div class="calculator">
-    <input type="number" id="num1">
-    <input type="number" id="num2">
-    <button onclick="add()">+</button>
-    <button onclick="subtract()">-</button>
-    <button onclick="multiply()">×</button>
-    <button onclick="divide()">÷</button>
-    <div id="result"></div>
-  </div>
-  <script>
-    function add() {
-      const num1 = parseInt(document.getElementById('num1').value);
-      const num2 = parseInt(document.getElementById('num2').value);
-      if (!isNaN(num1) &&!isNaN(num2)) {
-        document.getElementById('result').textContent = num1 + num2;
-      } else {
-        document.getElementById('result').textContent = '请输入有效的数字。';
-      }
-    }
-    function subtract() {
-      const num1 = parseInt(document.getElementById('num1').value);
-      const num2 = parseInt(document.getElementById('num2').value);
-      if (!isNaN(num1) &&!isNaN(num2)) {
-        document.getElementById('result').textContent = num1 - num2;
-      } else {
-        document.getElementById('result').textContent = '请输入有效的数字。';
-      }
-    }
-    function multiply() {
-      const num1 = parseInt(document.getElementById('num1').value);
-      const num2 = parseInt(document.getElementById('num2').value);
-      if (!isNaN(num1) &&!isNaN(num2)) {
-        document.getElementById('result').textContent = num1 * num2;
-      } else {
-        document.getElementById('result').textContent = '请输入有效的数字。';
-      }
-    }
-    function divide() {
-      const num1 = parseInt(document.getElementById('num1').value);
-      const num2 = parseInt(document.getElementById('num2').value);
-      if (!isNaN(num1) &&!isNaN(num2) && num2!== 0) {
-        document.getElementById('result').textContent = num1 / num2;
-      } else {
-        document.getElementById('result').textContent = '请输入有效的数字且除数不能为 0。';
-      }
-    }
-  </script>
-</body>
+    <div class="calculator">
+        <input type="text" id="display" class="display" readonly>
+        <div class="buttons">
+            <button onclick="appendValue('1')">1</button>
+            <button onclick="appendValue('2')">2</button>
+            <button onclick="appendValue('3')">3</button>
+            <button onclick="performOperation('+')">+</button>
 
+            <button onclick="appendValue('4')">4</button>
+            <button onclick="appendValue('5')">5</button>
+            <button onclick="appendValue('6')">6</button>
+            <button onclick="performOperation('-')">-</button>
+
+            <button onclick="appendValue('7')">7</button>
+            <button onclick="appendValue('8')">8</button>
+            <button onclick="appendValue('9')">9</button>
+            <button onclick="performOperation('*')">*</button>
+
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="appendValue('0')">0</button>
+            <button onclick="calculateResult()">=</button>
+            <button onclick="performOperation('/')">/</button>
+        </div>
+    </div>
+
+    <script>
+        let displayValue = ''; // 当前显示值
+        let operation = '';   // 当前操作符
+        let firstOperand = null; // 第一个操作数
+
+        function appendValue(value) {
+            displayValue += value;
+            updateDisplay();
+        }
+
+        function performOperation(op) {
+            if (firstOperand === null) {
+                firstOperand = parseFloat(displayValue);
+            } else if (operation) {
+                calculateResult(); // 连续计算
+                firstOperand = parseFloat(displayValue);
+            }
+            operation = op;
+            displayValue = '';
+        }
+
+        function calculateResult() {
+            if (firstOperand !== null && operation && displayValue !== '') {
+                const secondOperand = parseFloat(displayValue);
+                switch (operation) {
+                    case '+':
+                        displayValue = (firstOperand + secondOperand).toString();
+                        break;
+                    case '-':
+                        displayValue = (firstOperand - secondOperand).toString();
+                        break;
+                    case '*':
+                        displayValue = (firstOperand * secondOperand).toString();
+                        break;
+                    case '/':
+                        displayValue = secondOperand !== 0 ? (firstOperand / secondOperand).toString() : 'Error';
+                        break;
+                }
+                operation = '';
+                firstOperand = null;
+                updateDisplay();
+            }
+        }
+
+        function clearDisplay() {
+            displayValue = '';
+            operation = '';
+            firstOperand = null;
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            document.getElementById('display').value = displayValue;
+        }
+    </script>
+</body>
 </html>

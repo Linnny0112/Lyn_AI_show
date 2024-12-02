@@ -1,81 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    h1 {
-      text-align: center;
-    }
-   .card {
-      border: 1px solid #ccc;
-      padding: 20px;
-      margin: 20px auto;
-      width: 50%;
-      text-align: center;
-    }
-    button {
-      display: block;
-      margin: 10px auto;
-    }
-    #result {
-      text-align: center;
-      font-weight: bold;
-    }
-  </style>
-  <title>MBTI 测试</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Click Example</title>
 </head>
-
 <body>
-  <h1>MBTI 测试</h1>
-  <div id="question1" class="card">
-    <p>当你参加社交活动时，你通常：</p>
-    <label><input type="radio" name="q1" value="主动与人交流">主动与人交流</label>
-    <label><input type="radio" name="q1" value="等待别人来交流">等待别人来交流</label>
-  </div>
-  <button id="next1">下一题</button>
-  <div id="question2" class="card" style="display:none;">
-    <p>对于做决策，你更倾向于：</p>
-    <label><input type="radio" name="q2" value="基于逻辑和分析">基于逻辑和分析</label>
-    <label><input type="radio" name="q2" value="考虑他人感受和价值观">考虑他人感受和价值观</label>
-  </div>
-  <button id="next2" style="display:none;">下一题</button>
-  <div id="question3" class="card" style="display:none;">
-    <p>在处理任务时，你：</p>
-    <label><input type="radio" name="q3" value="提前规划，有条不紊">提前规划，有条不紊</label>
-    <label><input type="radio" name="q3" value="灵活应变，随机处理">灵活应变，随机处理</label>
-  </div>
-  <button id="next3" style="display:none;">下一题</button>
-  <div id="question4" class="card" style="display:none;">
-    <p>你更喜欢独自工作还是团队合作？</p>
-    <label><input type="radio" name="q4" value="独自工作">独自工作</label>
-    <label><input type="radio" name="q4" value="团队合作">团队合作</label>
-  </div>
-  <button id="next4" style="display:none;">下一题</button>
-  <div id="question5" class="card" style="display:none;">
-    <p>你对新事物的态度是：</p>
-    <label><input type="radio" name="q5" value="积极尝试">积极尝试</label>
-    <label><input type="radio" name="q5" value="谨慎观望">谨慎观望</label>
-  </div>
-  <button id="submit" style="display:none;">提交</button>
-  <div id="result"></div>
-  <script>
-    let currentQuestion = 1;
-    document.getElementById('next1').addEventListener('click', function () {
-      if (document.querySelector('input[name="q1"]:checked')) {
-        document.getElementById('question1').style.display = 'none';
-        document.getElementById('next1').style.display = 'none';
-        document.getElementById('question2').style.display = 'block';
-        document.getElementById('next2').style.display = 'block';
-        currentQuestion = 2;
-      } else {
-        alert('请选择一个答案。');
-      }
-    });
-    document.getElementById('next2').addEventListener('click', function () {
-      if (document.querySelector('input[name="q2"]:checked')) {
-        document.getElementById('question2').style.display
+    <h1>Button Click Example</h1>
+    <button type="button" onclick="console.log('button is clicked!')">
+        Show hint
+    </button>
+</body>
+</html>

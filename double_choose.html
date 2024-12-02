@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>麦当劳点餐</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+
+        .menu-section {
+            display: inline-block;
+            text-align: left;
+            margin: 10px;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .order-summary {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ffcc00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ffaa00;
+        }
+    </style>
+</head>
+<body>
+    <h1>欢迎光临麦当劳点餐系统</h1>
+    <h2>请选择您喜欢的餐品</h2>
+
+    <div class="menu-section">
+        <div class="menu-item">
+            <label>
+                <input type="checkbox" class="menu-checkbox" data-price="20" value="巨无霸汉堡">
+                巨无霸汉堡（¥20）
+            </label>
+        </div>
+        <div class="menu-item">
+            <label>
+                <input type="checkbox" class="menu-checkbox" data-price="15" value="麦辣鸡腿堡">
+                麦辣鸡腿堡（¥15）
+            </label>
+        </div>
+        <div class="menu-item">
+            <label>
+                <input type="checkbox" class="menu-checkbox" data-price="10" value="薯条">
+                薯条（¥10）
+            </label>
+        </div>
+        <div class="menu-item">
+            <label>
+                <input type="checkbox" class="menu-checkbox" data-price="8" value="可乐">
+                可乐（¥8）
+            </label>
+        </div>
+        <div class="menu-item">
+            <label>
+                <input type="checkbox" class="menu-checkbox" data-price="6" value="冰淇淋">
+                冰淇淋（¥6）
+            </label>
+        </div>
+    </div>
+
+    <button onclick="calculateOrder()">计算总价</button>
+    <div class="order-summary">
+        <p id="order-list">您的订单内容：无</p>
+        <p id="total-price">总价：¥0</p>
+    </div>
+
+    <script>
+        function calculateOrder() {
+            const checkboxes = document.querySelectorAll('.menu-checkbox');
+            let orderList = [];
+            let totalPrice = 0;
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    orderList.push(checkbox.value);
+                    totalPrice += parseFloat(checkbox.getAttribute('data-price'));
+                }
+            });
+
+            document.getElementById('order-list').innerText = 
+                orderList.length ? `您的订单内容：${orderList.join('，')}` : '您的订单内容：无';
+            document.getElementById('total-price').innerText = `总价：¥${totalPrice}`;
+        }
+    </script>
+</body>
+</html>

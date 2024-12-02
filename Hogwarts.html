@@ -5,81 +5,151 @@
    <link rel="shortcut icon" href="bitbug_favicon.ico">
    <style>
       body {
-         /* 使用背景图片 */
-         background-image: url('background.jpg'); /* 替换为你的霍格沃兹图片路径 */
-         background-size: cover; /* 让图片覆盖整个页面 */
-         background-repeat: no-repeat; /* 不重复图片 */
-         background-attachment: fixed; /* 背景固定，不随滚动移动 */
-         color: #ffffff; /* 字体颜色改为白色，避免与背景冲突 */
+         background-image: url('background.jpg'); /* 替换为霍格沃兹图片路径 */
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-attachment: fixed;
+         color: #ffffff;
+         font-family: "Times New Roman", serif;
+         margin: 0;
+         padding: 0;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+         text-align: center;
+         margin: 20px 0;
+         text-shadow: 2px 2px 5px #000000;
       }
 
       h1 {
-         text-align: center;
-         font-family: "Times New Roman", serif;
+         font-size: 3em;
+         color: #ffd700;
+      }
+
+      h2 {
+         font-size: 2.5em;
+         color: #ffcc33;
+      }
+
+      h3 {
+         font-size: 2em;
+         color: #ff9933;
+      }
+
+      h4 {
+         font-size: 1.5em;
+         color: #ff6600;
+      }
+
+      div {
+         background-color: rgba(0, 0, 0, 0.5);
+         border-radius: 10px;
+         padding: 20px;
+         margin: 20px auto;
+         max-width: 800px;
+         box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+      }
+
+      ul, ol {
+         margin: 20px 40px;
+      }
+
+      ul li, ol li {
+         margin-bottom: 10px;
+      }
+
+      dl dt {
+         font-weight: bold;
+         color: #99ccff;
+      }
+
+      dl dd {
+         margin-left: 20px;
       }
 
       ruby rt {
-         font-size: 1.2em; /* 增大拼音字体大小 */
-         color: #dddddd; /* 设置拼音为浅灰色 */
+         font-size: 1.2em;
+         color: #dddddd;
          font-style: italic;
       }
 
       ruby {
-         font-size: 1.5em; /* 增大整体字体大小 */
+         font-size: 1.5em;
       }
 
       q {
-         font-style: italic; /* 引号内容为斜体 */
+         font-style: italic;
       }
 
       cite {
-         font-style: italic; /* 引用书籍为斜体 */
-         color: #cccccc; /* 设置颜色更浅 */
+         font-style: italic;
+         color: #cccccc;
+      }
+
+      strong {
+         color: #ffcc00;
+      }
+
+      abbr {
+         cursor: help;
+         text-decoration: underline dotted;
       }
    </style>
 </head>
 <body>
-<h1>
-   欢迎来到<mark><b>
+   <h1>
+      欢迎来到<mark><b>
          <ruby>霍<rt>táo</rt>格<rt>xué</rt>沃<rt>shèng</rt>兹<rt>dì</rt></ruby>
       </b></mark>魔法学院
-</h1>
-<p>
-   以下是本周的
-   <strong>
-      <dfn id="课程表">
-         <abbr title="欢迎你使用时空转换器同时修很多门课噢">课程表（悬浮在这看看）</abbr></dfn>
-   </strong>
-   <dl>
-      <dt><i>周一</i></dt>
-      <dd>
-         <span style="color: #ffcc00;">变形术</span><br>
-         魔法史
-      </dd>
-      <dt><i>周二</i></dt>
-      <dd>
-         占卜术<br>
-         <span style="font-weight: bold; color: #99ccff;">魔药课</span>
-      </dd>
-      <dt><i>周三</i></dt>
-      <dd>
-         麻瓜研究<br>
-         黑魔法防御术<sup>*</sup> 
-         <small><sub>(需提前准备)</sub></small>
-      </dd>
-      <dt><i>周四</i></dt>
-      <dd>
-         天文学<br>
-         神奇动物保护课
-      </dd>
-   </dl>
-</p>
-<p>
-   关于学校的一段名言：<q>魔法的本质是发现并创造奇迹。</q> - <cite>《霍格沃兹校史》</cite>
-</p>
-<p>
-   为什么只有<em>四天</em>的课？因为这个学校<mark>善</mark><br>
-   <small>教导主任不会告诉你其实是他周五忘记排课了。</small>
-</p>
+   </h1>
+   <p>
+      以下是本周的
+      <strong>
+         <dfn id="课程表">
+            <abbr title="欢迎你使用时空转换器同时修很多门课噢">课程表（悬浮在这看看）</abbr>
+         </dfn>
+      </strong>
+   </p>
+   <div>
+      <h2>本周课程安排</h2>
+      <dl>
+         <dt>周一</dt>
+         <dd>变形术<br>魔法史</dd>
+         <dt>周二</dt>
+         <dd>占卜术<br>魔药课</dd>
+         <dt>周三</dt>
+         <dd>麻瓜研究<br>黑魔法防御术</dd>
+         <dt>周四</dt>
+         <dd>天文学<br>神奇动物保护课</dd>
+      </dl>
+   </div>
+   <div>
+      <h3>学院分院</h3>
+      <ul>
+         <li>格兰芬多</li>
+         <li>赫奇帕奇</li>
+         <li>拉文克劳</li>
+         <li>斯莱特林</li>
+      </ul>
+   </div>
+   <div>
+      <h4>必备魔法书单</h4>
+      <ol>
+         <li>《初级魔咒指南》</li>
+         <li>《黑魔法防御理论与实践》</li>
+         <li>《魔法药剂学入门》</li>
+      </ol>
+   </div>
+   <div>
+      <h5>校长寄语</h5>
+      <p>魔法不仅是天赋，更是一种责任。</p>
+   </div>
+   <footer>
+      <h6>霍格沃兹校史</h6>
+      <p>
+         <q>魔法的本质是发现并创造奇迹。</q> - <cite>《霍格沃兹校史》</cite>
+      </p>
+      <small>&copy; 2024 霍格沃兹魔法学院. 魔法永存！</small>
+   </footer>
 </body>
 </html>

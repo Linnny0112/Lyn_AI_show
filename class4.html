@@ -66,17 +66,16 @@
   <script>
     let currentQuestion = 1;
     document.getElementById('next1').addEventListener('click', function () {
-      document.getElementById('question1').style.display = 'none';
-      document.getElementById('next1').style.display = 'none';
-      document.getElementById('question2').style.display = 'block';
-      document.getElementById('next2').style.display = 'block';
-      currentQuestion = 2;
+      if (document.querySelector('input[name="q1"]:checked')) {
+        document.getElementById('question1').style.display = 'none';
+        document.getElementById('next1').style.display = 'none';
+        document.getElementById('question2').style.display = 'block';
+        document.getElementById('next2').style.display = 'block';
+        currentQuestion = 2;
+      } else {
+        alert('请选择一个答案。');
+      }
     });
     document.getElementById('next2').addEventListener('click', function () {
-      document.getElementById('question2').style.display = 'none';
-      document.getElementById('next2').style.display = 'none';
-      document.getElementById('question3').style.display = 'block';
-      document.getElementById('next3').style.display = 'block';
-      currentQuestion = 3;
-    });
-    document.getElementById('next3').addEventListener('click',
+      if (document.querySelector('input[name="q2"]:checked')) {
+        document.getElementById('question2').style.display

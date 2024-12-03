@@ -6,22 +6,25 @@
   <title>视频解说刻舟求剑</title>
   <link rel="shortcut icon" href="bitbug_favicon.ico">
   <style>
-    /* 使用flexbox布局，使视频和音频不重叠 */
     .media-container {
       display: flex;
-      flex-direction: column; /* 使它们垂直排列 */
-      gap: 20px; /* 增加它们之间的间距 */
-      align-items: center; /* 水平居中对齐 */
+      flex-direction: column; 
+      gap: 20px; 
+      align-items: center; 
     }
 
     audio {
-      width: 60%; /* 音频控件占据页面的60%宽度 */
+      width: 60%; 
       height: 40px;
     }
 
     iframe {
-      width: 80%; /* 视频占据页面的80%宽度 */
-      height: 450px; /* 调整视频高度 */
+      width: 80%; 
+      height: 450px; 
+    }
+
+    ul {
+      align-items:center;
     }
   </style>
 </head>
@@ -35,15 +38,16 @@
     <li>The man groped around in the water, his face puzzled, but he could not find the sword.</li>
   </ul>
 
-  <!-- 媒体容器：音频和视频 -->
+  
   <div class="media-container">
-    <!-- 音频控件 -->
     <audio src="Moonlit Whispers.mp3" autoplay controls>
     </audio>
-
-    <!-- 视频嵌入 -->
-    <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113542627920057&bvid=BV1nBzcY5Ehz&cid=27002407460&p=1" scrolling="no" frameborder="0" allowfullscreen="true">
-    </iframe>
+    <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113586064130711&bvid=BV1TxzyYGEwG&cid=27153665220&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
   </div>
+  <ul>
+    <li>liblab：文生图</li>
+    <li>liblab、可灵、通义：图生视频</li>
+    <li>suno：音频来源</li>
+  </ul>
 </body>
 </html>

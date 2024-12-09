@@ -7,19 +7,41 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ff4500;
         }
         .menu-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 10px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
         }
         .menu-item span {
             font-size: 18px;
+            font-weight: bold;
+            color: #333;
         }
         .quantity-controls {
             display: flex;
@@ -28,33 +50,53 @@
         .quantity-controls button {
             font-size: 16px;
             padding: 5px 10px;
-            margin: 0 5px;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            background-color: #ff4500;
+            color: white;
+            margin: 0 5px;
+        }
+        .quantity-controls button:hover {
+            background-color: #e03e00;
         }
         .quantity-display {
             font-size: 16px;
+            font-weight: bold;
             width: 30px;
             text-align: center;
+            color: #333;
         }
         .cart {
             margin-top: 20px;
-            font-size: 20px;
+            background: #fff8e1;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .cart h2 {
+            margin-bottom: 10px;
+            color: #333;
         }
         .cart-total {
             margin-top: 10px;
             font-weight: bold;
+            text-align: right;
+            color: #ff4500;
         }
     </style>
 </head>
 <body>
-    <h1>麦当劳点餐</h1>
-    <div id="menu">
-        <!-- 菜单项 -->
-    </div>
-    <div class="cart">
-        <h2>购物车</h2>
-        <div id="cart-items"></div>
-        <div class="cart-total">总价：￥<span id="total-price">0</span></div>
+    <div class="container">
+        <h1>麦当劳点餐</h1>
+        <div id="menu">
+            <!-- 菜单项 -->
+        </div>
+        <div class="cart">
+            <h2>购物车</h2>
+            <div id="cart-items"></div>
+            <div class="cart-total">总价：￥<span id="total-price">0</span></div>
+        </div>
     </div>
 
     <script>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>单选功能示例</title>
+    <title>带验证码的单选功能示例</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -35,6 +35,25 @@
         .option input {
             margin-right: 10px;
         }
+        .captcha-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .captcha-image {
+            background-color: #ddd;
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            user-select: none;
+        }
+        .captcha-input {
+            margin-left: 10px;
+            flex-grow: 1;
+        }
         .submit-button {
             margin-top: 20px;
             padding: 10px 20px;
@@ -57,7 +76,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>单选示例</h1>
+        <h1>带验证码的单选示例</h1>
         <form id="radio-form">
             <div class="option">
                 <input type="radio" id="option1" name="choice" value="选项 1">
@@ -75,22 +94,57 @@
                 <input type="radio" id="option4" name="choice" value="选项 4">
                 <label for="option4">选项 4</label>
             </div>
+
+            <!-- 验证码部分 -->
+            <div class="captcha-container">
+                <div class="captcha-image" id="captcha-text">1234</div>
+                <input type="text" id="captcha-input" class="captcha-input" placeholder="输入验证码">
+            </div>
+
             <button type="button" class="submit-button" id="submit-button">提交</button>
         </form>
         <div class="result" id="result"></div>
     </div>
 
     <script>
+        // 动态生成验证码
+        function generateCaptcha() {
+            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            let captcha = "";
+            for (let i = 0; i < 4; i++) {
+                captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return captcha;
+        }
+
+        // 初始化验证码
+        const captchaText = document.getElementById("captcha-text");
+        const captchaInput = document.getElementById("captcha-input");
+        captchaText.textContent = generateCaptcha();
+
         const submitButton = document.getElementById("submit-button");
         const resultDiv = document.getElementById("result");
 
         submitButton.addEventListener("click", () => {
             const selectedOption = document.querySelector('input[name="choice"]:checked');
-            if (selectedOption) {
-                resultDiv.textContent = `您选择了：${selectedOption.value}`;
-            } else {
+            const captchaValue = captchaInput.value;
+
+            if (!selectedOption) {
                 resultDiv.textContent = "请选择一个选项！";
+                resultDiv.style.color = "red";
+                return;
             }
+
+            if (captchaValue !== captchaText.textContent) {
+                resultDiv.textContent = "验证码错误，请重试！";
+                resultDiv.style.color = "red";
+                captchaText.textContent = generateCaptcha(); // 刷新验证码
+                captchaInput.value = ""; // 清空输入框
+                return;
+            }
+
+            resultDiv.textContent = `提交成功！您选择了：${selectedOption.value}`;
+            resultDiv.style.color = "#007bff";
         });
     </script>
 </body>

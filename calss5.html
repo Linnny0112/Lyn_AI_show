@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单选功能示例</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .option {
+            margin: 10px 0;
+            text-align: left;
+        }
+        .option input {
+            margin-right: 10px;
+        }
+        .submit-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>单选示例</h1>
+        <form id="radio-form">
+            <div class="option">
+                <input type="radio" id="option1" name="choice" value="选项 1">
+                <label for="option1">选项 1</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="option2" name="choice" value="选项 2">
+                <label for="option2">选项 2</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="option3" name="choice" value="选项 3">
+                <label for="option3">选项 3</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="option4" name="choice" value="选项 4">
+                <label for="option4">选项 4</label>
+            </div>
+            <button type="button" class="submit-button" id="submit-button">提交</button>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const submitButton = document.getElementById("submit-button");
+        const resultDiv = document.getElementById("result");
+
+        submitButton.addEventListener("click", () => {
+            const selectedOption = document.querySelector('input[name="choice"]:checked');
+            if (selectedOption) {
+                resultDiv.textContent = `您选择了：${selectedOption.value}`;
+            } else {
+                resultDiv.textContent = "请选择一个选项！";
+            }
+        });
+    </script>
+</body>
+</html>

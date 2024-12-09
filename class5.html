@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>麦当劳点餐</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .menu-item span {
+            font-size: 18px;
+        }
+        .menu-item select {
+            font-size: 16px;
+        }
+        .cart {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+        .cart-total {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>麦当劳点餐</h1>
+    <div id="menu">
+        <!-- 菜单项 -->
+    </div>
+    <div class="cart">
+        <h2>购物车</h2>
+        <div id="cart-items"></div>
+        <div class="cart-total">总价：￥<span id="total-price">0</span></div>
+    </div>
+
+    <script>
+        const menuItems = [
+            { name: "巨无霸", price: 22 },
+            { name: "麦辣鸡腿堡", price: 20 },
+            { name: "薯条", price: 12 },
+            { name: "麦乐鸡（6块）", price: 15 },
+            { name: "可乐", price: 10 }
+        ];
+
+        const menuContainer = document.getElementById("menu");
+        const cartContainer = document.getElementById("cart-items");
+        const totalPriceElement = document.getElementById("total-price");
+
+        const cart = {};
+
+        function updateCart() {
+            cartContainer.innerHTML = "";
+            let totalPrice = 0;
+
+            for (let itemName in cart) {
+                const item = menuItems.find(i => i.name === itemName);
+                const quantity = cart[itemName];
+                if (quantity > 0) {
+                    const itemTotal = item.price * quantity;
+                    totalPrice += itemTotal;
+                    const cartItem = document.createElement("div");
+                    cartItem.textContent = `${itemName} x ${quantity} = ￥${itemTotal}`;
+                    cartContainer.appendChild(cartItem);
+                }
+            }
+
+            totalPriceElement.textContent = totalPrice.toFixed(2);
+        }
+
+        menuItems.forEach(item => {
+            cart[item.name] = 0;
+
+            const menuItem = document.createElement("div");
+            menuItem.className = "menu-item";
+
+            const itemName = document.createElement("span");
+            itemName.textContent = `${item.name} - ￥${item.price}`;
+            menuItem.appendChild(itemName);
+
+            const quantitySelector = document.createElement("select");
+            for (let i = 0; i <= 5; i++) {
+                const option = document.createElement("option");
+                option.value = i;
+                option.textContent = i;
+                quantitySelector.appendChild(option);
+            }
+            quantitySelector.addEventListener("change", (e) => {
+                cart[item.name] = parseInt(e.target.value);
+                updateCart();
+            });
+            menuItem.appendChild(quantitySelector);
+
+            menuContainer.appendChild(menuItem);
+        });
+    </script>
+</body>
+</html>

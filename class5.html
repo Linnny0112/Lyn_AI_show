@@ -15,12 +15,26 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
         }
         .menu-item span {
             font-size: 18px;
         }
-        .menu-item select {
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+        }
+        .quantity-controls button {
             font-size: 16px;
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .quantity-display {
+            font-size: 16px;
+            width: 30px;
+            text-align: center;
         }
         .cart {
             margin-top: 20px;
@@ -87,19 +101,38 @@
             itemName.textContent = `${item.name} - ￥${item.price}`;
             menuItem.appendChild(itemName);
 
-            const quantitySelector = document.createElement("select");
-            for (let i = 0; i <= 5; i++) {
-                const option = document.createElement("option");
-                option.value = i;
-                option.textContent = i;
-                quantitySelector.appendChild(option);
-            }
-            quantitySelector.addEventListener("change", (e) => {
-                cart[item.name] = parseInt(e.target.value);
-                updateCart();
-            });
-            menuItem.appendChild(quantitySelector);
+            const quantityControls = document.createElement("div");
+            quantityControls.className = "quantity-controls";
 
+            const minusButton = document.createElement("button");
+            minusButton.textContent = "-";
+            minusButton.addEventListener("click", () => {
+                if (cart[item.name] > 0) {
+                    cart[item.name]--;
+                    updateCart();
+                    quantityDisplay.textContent = cart[item.name];
+                }
+            });
+
+            const quantityDisplay = document.createElement("span");
+            quantityDisplay.className = "quantity-display";
+            quantityDisplay.textContent = "0";
+
+            const plusButton = document.createElement("button");
+            plusButton.textContent = "+";
+            plusButton.addEventListener("click", () => {
+                if (cart[item.name] < 5) {
+                    cart[item.name]++;
+                    updateCart();
+                    quantityDisplay.textContent = cart[item.name];
+                }
+            });
+
+            quantityControls.appendChild(minusButton);
+            quantityControls.appendChild(quantityDisplay);
+            quantityControls.appendChild(plusButton);
+
+            menuItem.appendChild(quantityControls);
             menuContainer.appendChild(menuItem);
         });
     </script>

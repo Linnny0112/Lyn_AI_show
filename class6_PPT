@@ -7,13 +7,16 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      overflow: hidden;
     }
   .slide {
       border: 1px solid #ccc;
       padding: 20px;
-      margin: 20px auto;
-      width: 80%;
+      margin: 0;
+      width: 100%;
+      height: 100vh;
       text-align: center;
+      box-sizing: border-box;
     }
     h1, h2 {
       color: #333;
@@ -30,19 +33,28 @@
 </head>
 
 <body>
-  <div class="slide">
+  <div class="slide" id="page1">
     <h1>Page 1: Introduction</h1>
     <p>Welcome to this presentation.</p>
   </div>
-  <div class="slide">
+  <div class="slide" id="page2">
     <h2>Page 2: Main Content</h2>
     <p>Here's the important stuff.</p>
     <img src="刻舟求剑.png" alt="Image for page 2">
   </div>
-  <div class="slide">
+  <div class="slide" id="page3">
     <h2>Page 3: Conclusion</h2>
     <p>That's all for now.</p>
   </div>
+  <script>
+    let currentPage = 1;
+    document.addEventListener('click', function() {
+      if (currentPage < 3) {
+        document.getElementById(`page${currentPage}`).style.transform = 'translateY(-100vh)';
+        currentPage++;
+      }
+    });
+  </script>
 </body>
 
 </html>

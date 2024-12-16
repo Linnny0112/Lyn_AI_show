@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+  .slide {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin: 20px auto;
+      width: 80%;
+      text-align: center;
+    }
+  </style>
+  <title>Blackpink PPT</title>
+</head>
+
+<body>
+  <div class="slide">
+    <h1>Blackpink</h1>
+    <img src="blackpink_group.jpg" alt="Blackpink Group">
+  </div>
+  <div class="slide">
+    <h2>Members</h2>
+    <ul>
+      <li>Jisoo</li>
+      <li>Jennie</li>
+      <li>Rosé</li>
+      <li>Lisa</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h2>Popular Songs</h2>
+    <p>"How You Like That"</p>
+    <p>"Kill This Love"</p>
+    <p>"Ddu-Du Ddu-Du"</p>
+  </div>
+  <div class="slide">
+    <h2>Music Videos</h2>
+    <p>Impressive visuals and choreography.</p>
+  </div>
+  <div class="slide">
+    <h2>Fanbase</h2>
+    <p>Enormous global fan following.</p>
+  </div>
+</body>
+
+</html>

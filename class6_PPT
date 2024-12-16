@@ -3,14 +3,14 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <style>
     body {
       font-family: Arial, sans-serif;
       overflow: hidden;
     }
-  .slide {
-      border: 1px solid #ccc;
+   .slide {
+      border: none;
       padding: 20px;
       margin: 0;
       width: 100%;
@@ -18,11 +18,20 @@
       text-align: center;
       box-sizing: border-box;
     }
+    #page1 {
+      background-color: red;
+    }
+    #page2 {
+      background-color: green;
+    }
+    #page3 {
+      background-color: blue;
+    }
     h1, h2 {
-      color: #333;
+      color: white;
     }
     p {
-      color: #666;
+      color: white;
     }
     img {
       max-width: 100%;

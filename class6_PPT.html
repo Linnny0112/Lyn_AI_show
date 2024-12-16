@@ -57,10 +57,24 @@
   </div>
   <script>
     let currentPage = 1;
-    document.addEventListener('click', function() {
-      if (currentPage < 3) {
-        document.getElementById(`page${currentPage}`).style.transform = 'translateY(-100vh)';
-        currentPage++;
+    let startX, startY;
+    document.addEventListener('touchstart', function(event) {
+      startX = event.touches[0].clientX;
+      startY = event.touches[0].clientY;
+    });
+    document.addEventListener('touchend', function(event) {
+      let endX = event.changedTouches[0].clientX;
+      let endY = event.changedTouches[0].clientY;
+      if (endX - startX > 50) {
+        if (currentPage < 3) {
+          document.getElementById(`page${currentPage}`).style.transform = 'translateY(-100vh)';
+          currentPage++;
+        }
+      } else if (startX - endX > 50) {
+        if (currentPage > 1) {
+          currentPage--;
+          document.getElementById(`page${currentPage}`).style.transform = 'translateY(0)';
+        }
       }
     });
   </script>

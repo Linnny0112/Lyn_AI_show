@@ -8,12 +8,25 @@
     body {
       font-family: Arial, sans-serif;
     }
-  .slide {
+   .slide {
       border: 1px solid #ccc;
       padding: 20px;
       margin: 20px auto;
       width: 80%;
       text-align: center;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin: 10px 0;
+    }
+    p {
+      color: #666;
     }
   </style>
   <title>Blackpink PPT</title>
@@ -22,7 +35,7 @@
 <body>
   <div class="slide">
     <h1>Blackpink</h1>
-    <img src="blackpink_group.jpg" alt="Blackpink Group">
+    <p>One of the most popular K-pop groups.</p>
   </div>
   <div class="slide">
     <h2>Members</h2>

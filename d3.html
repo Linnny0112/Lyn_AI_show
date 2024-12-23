@@ -1,1 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <title>D3 Simple Bar Chart</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <svg width="400" height="300"></svg>
+    <script>
+        // 定义数据集
+        const data = [4, 8, 15, 16, 23, 42];
+
+        // 选择svg元素
+        const svg = d3.select('svg');
+
+        // 设置柱状图的一些基本属性，比如宽度、间距等
+        const barWidth = 50;
+        const barPadding = 10;
+
+        // 创建并绑定数据到矩形元素（柱状图的柱子）
+        const bars = svg.selectAll('rect')
+           .data(data)
+           .enter()
+           .append('rect');
+
+        // 设置每个柱子的位置、宽度、高度等属性
+        bars.attr('x', (d, i) => (i * (barWidth + barPadding)))
+           .attr('y', d => 300 - d * 10)
+           .attr('width', barWidth)
+           .attr('height', d => d * 10)
+           .attr('fill', 'steelblue');
+
+    </script>
+</body>
+
+</html>

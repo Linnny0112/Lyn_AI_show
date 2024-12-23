@@ -2,105 +2,105 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>触摸事件移动距离记录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>全屏翻页</title>
     <style>
-        /* 基本样式 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f4f4f4;
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            font-size: 6vw; /* 超大字体 */
+            color: white;
             text-align: center;
         }
 
-        .container {
-            padding: 2rem;
-            background-color: #fff;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
+        .red {
+            background-color: red;
         }
 
-        h1 {
-            margin-bottom: 1rem;
+        .green {
+            background-color: green;
         }
 
-        #distance {
-            font-size: 1.5rem;
-            margin-top: 1rem;
+        .blue {
+            background-color: blue;
+        }
+
+        #redPage {
+            display: flex; /* 初始显示红色页面 */
         }
     </style>
 </head>
 <body>
-    <div class="container" id="event-container">
-        <h1>触摸事件移动距离记录</h1>
-        <p>按住屏幕并移动手指来记录移动距离。</p>
-        <p id="distance">移动距离: 0 px</p>
+    <div class="page red" id="redPage">
+        <div id="pageIndex0">0</div>
+    </div>
+    <div class="page green" id="greenPage">
+        <div id="pageIndex1">1</div>
+    </div>
+    <div class="page blue" id="bluePage">
+        <div id="pageIndex2">2</div>
     </div>
 
     <script>
-        // 获取容器元素和距离显示元素
-        const container = document.getElementById('event-container');
-        const distanceElement = document.getElementById('distance');
+        let currentPage = 0; // 当前显示的页面索引
+        const pages = document.querySelectorAll('.page');
+        const totalPages = pages.length;
 
-        let startX, startY, currentX, currentY, totalDistance = 0;
+        function showPage(index) {
+            for (let i = 0; i < totalPages; i++) {
+                pages[i].style.display = 'none';
+            }
+            if (index >= 0 && index < totalPages) {
+                pages[index].style.display = 'flex';
+                // 更新页面中的索引值
+                pages[index].querySelector('div').textContent = index;
+            }
+        }
 
-        // 触摸开始事件
-        container.addEventListener('touchstart', function(event) {
-            event.preventDefault(); // 阻止默认行为
-            const touch = event.touches[0];
-            startX = touch.clientX;
-            startY = touch.clientY;
-            totalDistance = 0;
-            distanceElement.textContent = `移动距离: ${totalDistance} px`;
+        let startY, endY;
+
+        document.addEventListener('touchstart', function(event) {
+            startY = event.touches[0].clientY;
         });
 
-        // 触摸移动事件
-        container.addEventListener('touchmove', function(event) {
-            event.preventDefault(); // 阻止默认行为
-            const touch = event.touches[0];
-            currentX = touch.clientX;
-            currentY = touch.clientY;
+        document.addEventListener('touchend', function(event) {
+            endY = event.changedTouches[0].clientY;
 
-            // 计算当前移动距离
-            const dx = currentX - startX;
-            const dy = currentY - startY;
-            const currentDistance = Math.sqrt(dx * dx + dy * dy);
+            const deltaY = startY - endY; // 注意这里是 startY - endY
 
-            // 更新总移动距离
-            totalDistance += currentDistance;
-
-            // 重置起始位置
-            startX = currentX;
-            startY = currentY;
-
-            // 更新显示的距离
-            distanceElement.textContent = `移动距离: ${Math.round(totalDistance)} px`;
+            if (Math.abs(deltaY) > 30) {
+                if (deltaY > 0) {
+                    // 向上滑动，显示下一个页面
+                    currentPage = (currentPage + 1) % totalPages;
+                } else {
+                    // 向下滑动，显示上一个页面
+                    currentPage = (currentPage - 1 + totalPages) % totalPages;
+                }
+                showPage(currentPage);
+            }
         });
 
-        // 触摸结束事件
-        container.addEventListener('touchend', function(event) {
-            event.preventDefault(); // 阻止默认行为
-            distanceElement.textContent = `移动距离: ${Math.round(totalDistance)} px`;
-        });
-
-        // 触摸取消事件（例如，用户的手指离开屏幕）
-        container.addEventListener('touchcancel', function(event) {
-            event.preventDefault(); // 阻止默认行为
-            distanceElement.textContent = `移动距离: ${Math.round(totalDistance)} px`;
-        });
+        // 初始化显示第一个页面
+        showPage(currentPage);
     </script>
 </body>
 </html>

@@ -47,9 +47,12 @@
       .chart-container {
          background-color: rgba(0, 0, 0, 0.7);
          padding: 20px;
-         margin: 20px auto;
+         margin: 0 auto; /* 确保容器居中 */
          max-width: 1200px; /* 增大容器宽度 */
-         display: block;
+         display: flex;
+         justify-content: center; /* 内容居中 */
+         align-items: center;
+         flex-direction: column;
       }
 
       #chart {

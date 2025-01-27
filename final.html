@@ -161,9 +161,9 @@
         .style("opacity", 0);
 
       // 设置图表尺寸
-      const width = 900; // 增大宽度
+      const width = 1000; // 增大宽度
       const height = 500; // 增大高度
-      const margin = { top: 50, right: 50, bottom: 80, left: 80 }; // 调整边距
+      const margin = { top: 50, right: 50, bottom: 120, left: 80 }; // 调整边距
 
       // 创建SVG画布
       const svg = d3.select("#chart")
@@ -232,7 +232,8 @@
            .attr("transform", "rotate(-45)")
            .style("text-anchor", "end")
            .style("fill", "#fff")
-           .style("font-size", "12px");
+           .style("font-size", "12px")
+           .attr("dy", "0.5em"); // 调整文本位置
 
          // 添加Y轴
          svg.append("g")

@@ -126,6 +126,12 @@
          background-color: rgba(0, 0, 0, 0.7);
          padding: 30px;
          margin: 30px auto;
+         max-width: 1000px;  /* 增大容器宽度 */
+         display: block;     /* 改为块级元素 */
+      }
+      /* 新增图表溢出处理 */
+      #chart {
+         overflow: visible; /* 允许内容溢出 */
       }
       .bar:hover {
          filter: brightness(1.2);
@@ -191,97 +197,125 @@
       <h5>校长寄语</h5>
       <p>魔法不仅是天赋，更是一种责任。</p>
    </div>
+   
   <div class="chart-container">
       <h2>哈利波特系列电影评分</h2>
       <div id="chart"></div>
    </div>
 
    <script>
-      // 动态创建工具提示
-      const tooltip = d3.select("body")
-        .append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
-
-      // 设置图表尺寸
-      const width = 800;
-      const height = 400;
-      const margin = { top: 20, right: 20, bottom: 80, left: 40 };
-
-      // 创建SVG画布
-      const svg = d3.select("#chart")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .style("background", "rgba(0, 0, 0, 0.3)")
-        .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
-
-      // 加载和处理数据
+      // 增加错误捕获
       d3.csv("哈利波特数据.csv").then(data => {
-         // 数据预处理
+         // 数据预处理（添加调试输出）
          const processedData = data
            .filter(d => d.排名 !== "无")
-           .map(d => ({
-             ...d,
-             评分: +d.评分,
-             评论人数: +d.评论人数.replace(/,/g, ''),
-             片长: +d.片长.replace("分钟", "")
-           }))
-           .sort((a, b) => d3.ascending(a.排名.replace("No.", ""), b.排名.replace("No.", "")));
+           .map(d => {
+             // 调试输出原始数据
+             console.log("原始数据:", d);
+             return {
+               ...d,
+               评分: +d.评分,
+               评论人数: +d.评论人数.replace(/,/g, ''),
+               片长: +d.片长.replace("分钟", "")
+             }
+           })
+           .sort((a, b) => d3.ascending(
+             a.排名.replace("No.", ""), 
+             b.排名.replace("No.", "")
+           ));
+         
+         console.log("处理后的数据:", processedData);
 
-         // 比例尺设置
+         // 调整图表尺寸
+         const width = 900;  // 增大宽度
+         const height = 500; // 增大高度
+         const margin = { top: 30, right: 30, bottom: 150, left: 60 }; // 增大下边距
+
+         // 移除旧SVG（防止重复）
+         d3.select("#chart").select("svg").remove();
+
+         // 创建SVG画布
+         const svg = d3.select("#chart")
+           .append("svg")
+           .attr("width", width)
+           .attr("height", height)
+           .style("background", "rgba(0, 0, 0, 0.3)")
+           .append("g")
+           .attr("transform", `translate(${margin.left},${margin.top})`);
+
+         // 比例尺设置（添加容错处理）
          const x = d3.scaleBand()
-           .domain(processedData.map(d => d.电影名.split(" ")[0]))
+           .domain(processedData.map(d => {
+             const title = d.电影名.split(" ")[0];
+             return title || "未知电影"; // 防止空值
+           }))
            .range([0, width - margin.left - margin.right])
-           .padding(0.1);
+           .padding(0.2);
 
+         const yMax = d3.max(processedData, d => d.评分) || 9.2; // 默认值
          const y = d3.scaleLinear()
-           .domain([8, d3.max(processedData, d => d.评分)])
+           .domain([8, yMax])
            .range([height - margin.top - margin.bottom, 0]);
 
-         // 绘制柱状图
+         // 绘制柱状图（添加动画效果）
          svg.selectAll(".bar")
            .data(processedData)
            .enter()
            .append("rect")
            .attr("class", "bar")
            .attr("x", d => x(d.电影名.split(" ")[0]))
-           .attr("y", d => y(d.评分))
            .attr("width", x.bandwidth())
+           .attr("y", height - margin.top - margin.bottom) // 初始位置在底部
+           .attr("height", 0) // 初始高度为0
+           .transition()      // 添加动画
+           .duration(800)
+           .attr("y", d => y(d.评分))
            .attr("height", d => height - margin.top - margin.bottom - y(d.评分))
-           .attr("fill", "#ffd700")
-           .on("mouseover", (event, d) => {
-             tooltip.transition()
-               .duration(200)
-               .style("opacity", .9);
-             tooltip.html(`
-               <strong>${d.电影名}</strong><br>
-               评分: ${d.评分}<br>
-               片长: ${d.片长}分钟<br>
-               评论人数: ${d.评论人数.toLocaleString()}
-             `)
-               .style("left", (event.pageX + 10) + "px")
-               .style("top", (event.pageY - 28) + "px");
-           })
-           .on("mouseout", () => {
-             tooltip.transition()
-               .duration(500)
-               .style("opacity", 0);
-           });
+           .attr("fill", "#ffd700");
 
-         // 添加坐标轴
+         // 坐标轴样式优化
+         const axisStyle = {
+             "font-family": "Times New Roman",
+             "font-size": "14px",
+             "fill": "#fff"
+         };
+
+         // X轴（添加换行处理）
          svg.append("g")
            .attr("transform", `translate(0, ${height - margin.top - margin.bottom})`)
            .call(d3.axisBottom(x).tickSizeOuter(0))
            .selectAll("text")
            .attr("transform", "rotate(-45)")
            .style("text-anchor", "end")
-           .style("fill", "#fff");
+           .style("fill", "#fff")
+           .each(function(d) {
+             d3.select(this)
+               .html(d.replace("·", "·<br/>")); // 在·号后换行
+           });
 
+         // Y轴
          svg.append("g")
-           .call(d3.axisLeft(y).ticks(5).tickFormat(d => `${d}分`))
-           .style("color", "#fff");
+           .call(d3.axisLeft(y)
+             .ticks(5)
+             .tickFormat(d => `${d}分`)
+             .tickSize(-width + margin.left + margin.right) // 添加网格线
+           )
+           .style("color", "#fff")
+           .selectAll("text")
+           .style(axisStyle);
+
+         // 添加图表标题
+         svg.append("text")
+           .attr("x", (width - margin.left - margin.right)/2)
+           .attr("y", -10)
+           .attr("text-anchor", "middle")
+           .style("font-size", "16px")
+           .style("fill", "#ffd700")
+           .text("豆瓣电影评分");
+
+      }).catch(error => {
+         console.error("数据加载错误:", error);
+         alert("数据加载失败，请检查控制台日志！");
       });
    </script>
    <footer>

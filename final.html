@@ -59,6 +59,9 @@
          overflow: visible;
          margin: 0 auto; /* 确保图表居中 */
          width: 100%; /* 使图表宽度占满容器 */
+         display: flex;
+         justify-content: center; /* 内容居中 */
+         align-items: center;
       }
 
       .bar {
@@ -176,6 +179,8 @@
         .attr("width", width)
         .attr("height", height)
         .style("background", "rgba(0, 0, 0, 0.3)")
+        .style("display", "block") // 确保SVG本身是块级元素
+        .style("margin", "0 auto") // 确保SVG居中
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 

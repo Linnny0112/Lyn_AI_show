@@ -35,9 +35,9 @@
 
       .chart-container {
          background-color: rgba(0, 0, 0, 0.7);
-         padding: 30px;
-         margin: 30px auto;
-         max-width: 1000px;
+         padding: 20px;
+         margin: 20px auto;
+         max-width: 800px; /* 缩小容器宽度 */
          display: block;
       }
 
@@ -45,8 +45,13 @@
          overflow: visible;
       }
 
+      .bar {
+         fill: #ffcc00; /* 更柔和的黄色 */
+         transition: fill 0.3s ease; /* 添加颜色过渡效果 */
+      }
+
       .bar:hover {
-         filter: brightness(1.2);
+         fill: #ff9900; /* 悬停时更深的橙色 */
          cursor: pointer;
       }
 
@@ -59,6 +64,18 @@
          pointer-events: none;
          color: #fff;
          font-family: "Times New Roman", serif;
+         font-size: 14px;
+      }
+
+      .axis-label {
+         fill: #fff;
+         font-family: "Times New Roman", serif;
+         font-size: 14px;
+      }
+
+      .axis-line {
+         stroke: #fff;
+         stroke-width: 1;
       }
    </style>
 </head>
@@ -82,9 +99,9 @@
         .style("opacity", 0);
 
       // 设置图表尺寸
-      const width = 900;
-      const height = 500;
-      const margin = { top: 30, right: 30, bottom: 150, left: 60 };
+      const width = 700; // 缩小宽度
+      const height = 400; // 缩小高度
+      const margin = { top: 30, right: 30, bottom: 100, left: 50 }; // 调整边距
 
       // 创建SVG画布
       const svg = d3.select("#chart")
@@ -128,7 +145,6 @@
            .attr("width", x.bandwidth())
            .attr("y", d => y(d.评分))
            .attr("height", d => height - margin.top - margin.bottom - y(d.评分))
-           .attr("fill", "#ffd700")
            .on("mouseover", (event, d) => {
              tooltip.transition()
                .duration(200)
@@ -146,27 +162,44 @@
                .style("opacity", 0);
            });
 
-         // 添加坐标轴
+         // 添加X轴
          svg.append("g")
            .attr("transform", `translate(0, ${height - margin.top - margin.bottom})`)
            .call(d3.axisBottom(x).tickSizeOuter(0))
            .selectAll("text")
            .attr("transform", "rotate(-45)")
            .style("text-anchor", "end")
-           .style("fill", "#fff");
+           .style("fill", "#fff")
+           .style("font-size", "12px");
 
+         // 添加Y轴
          svg.append("g")
            .call(d3.axisLeft(y).ticks(5).tickFormat(d => `${d}分`))
-           .style("color", "#fff");
+           .style("color", "#fff")
+           .selectAll("text")
+           .style("fill", "#fff")
+           .style("font-size", "12px");
 
-         // 添加图表标题
+         // 添加Y轴标签
+         svg.append("text")
+           .attr("transform", "rotate(-90)")
+           .attr("y", -margin.left + 10)
+           .attr("x", -(height / 2))
+           .attr("dy", "1em")
+           .style("text-anchor", "middle")
+           .style("fill", "#fff")
+           .style("font-size", "14px")
+           .text("评分");
+
+         // 添加X轴标签
          svg.append("text")
            .attr("x", (width - margin.left - margin.right) / 2)
-           .attr("y", -10)
-           .attr("text-anchor", "middle")
-           .style("font-size", "16px")
-           .style("fill", "#ffd700")
-           .text("哈利波特系列电影评分");
+           .attr("y", height - margin.bottom + 40)
+           .style("text-anchor", "middle")
+           .style("fill", "#fff")
+           .style("font-size", "14px")
+           .text("电影名称");
+
       }).catch(error => {
          console.error("数据加载错误:", error);
          alert("数据加载失败，请检查控制台日志！");

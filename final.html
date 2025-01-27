@@ -45,18 +45,17 @@
       }
 
       .chart-container {
-         width: 100%;
-         max-width: 1200px;
-         height: auto;
-         margin: 0 auto;
+         width: 90%; /* 占满父容器的宽度 */
+         max-width: 1200px; /* 限制最大宽度 */
+         height: auto; /* 高度自适应 */
+         margin: 0 auto; /* 居中 */
          padding: 20px;
          background-color: rgba(0, 0, 0, 0.7);
-      }
-
-      #chart {
-         width: 100%;
-         height: auto;
-         overflow: visible;
+         overflow: visible; /* 确保内容不会被裁剪 */
+         display: flex;
+         justify-content: center; /* 内容居中 */
+         align-items: center;
+         flex-direction: column;
       }
 
       .bar {
@@ -145,7 +144,7 @@
    <!-- 图表容器 -->
    <div class="chart-container">
       <h2>哈利波特系列电影评分</h2>
-      <div id="chart"></div>
+      <!-- SVG 直接放在 .chart-container 中 -->
    </div>
 
    <footer>
@@ -164,16 +163,16 @@
         .style("opacity", 0);
 
       // 设置图表尺寸
-      const width = document.querySelector('.chart-container').clientWidth; // 动态宽度
+      const containerWidth = document.querySelector('.chart-container').clientWidth; // 动态宽度
       const height = 500; // 固定高度
-      const margin = { top: 20, right: 20, bottom: 50, left: 50 }; // 调整边距
-      const innerWidth = width - margin.left - margin.right; // 内部宽度
+      const margin = { top: 20, right: 20, bottom: 100, left: 50 }; // 调整边距，底部边距增大以显示电影名称
+      const innerWidth = containerWidth - margin.left - margin.right; // 内部宽度
       const innerHeight = height - margin.top - margin.bottom; // 内部高度
 
       // 创建SVG画布
-      const svg = d3.select("#chart")
+      const svg = d3.select(".chart-container")
         .append("svg")
-        .attr("width", width)
+        .attr("width", containerWidth)
         .attr("height", height)
         .style("background", "rgba(0, 0, 0, 0.3)")
         .style("display", "block")
@@ -252,7 +251,7 @@
          // 添加X轴标签
          svg.append("text")
             .attr("x", innerWidth / 2)
-            .attr("y", innerHeight + 40)
+            .attr("y", innerHeight + 80) // 调整位置以显示电影名称
             .style("text-anchor", "middle")
             .style("fill", "#fff")
             .style("font-size", "14px")

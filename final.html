@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>Welcome to Hogwarts!</title>
+   <link rel="shortcut icon" href="bitbug_favicon.ico">
+   <style>
+      body {
+         background-image: url('background.jpg');
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-attachment: fixed;
+         color: #ffffff;
+         font-family: "Times New Roman", serif;
+         margin: 0;
+         padding: 0;
+         text-align: center; 
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+         margin: 20px 0;
+         text-shadow: 2px 2px 5px #000000;
+      }
+
+      h1 {
+         font-size: 3em;
+         color: #ffd700;
+         text-transform: uppercase; 
+      }
+
+      h2 {
+         font-size: 2.5em;
+         color: #ffcc33;
+      }
+
+      h3 {
+         font-size: 2em;
+         color: #ff9933;
+      }
+
+      h4 {
+         font-size: 1.5em;
+         color: #ff6600;
+      }
+
+      div {
+         background-color: rgba(0, 0, 0, 0.6);
+         border-radius: 10px;
+         padding: 20px;
+         margin: 20px auto;
+         max-width: 800px;
+         box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+         display: inline-block;
+         text-align: center;
+      }
+
+      ul, ol {
+         margin: 20px auto;
+         padding: 0;
+         list-style-position: inside;
+         max-width: 600px;
+      }
+
+      ul li, ol li {
+         margin-bottom: 10px;
+         font-size: 1.2em;
+      }
+
+      dl {
+         text-align: center;
+      }
+
+      dl dt {
+         font-weight: bold;
+         color: #99ccff;
+         margin-top: 10px;
+      }
+
+      dl dd {
+         margin-left: 0;
+         font-size: 1.1em;
+      }
+
+      ruby rt {
+         font-size: 1.2em;
+         color: #dddddd;
+         font-style: italic;
+      }
+
+      ruby {
+         font-size: 1.5em;
+      }
+
+      q {
+         font-style: italic;
+      }
+
+      cite {
+         font-style: italic;
+         color: #cccccc;
+      }
+
+      strong {
+         color: #ffcc00;
+      }
+
+      abbr {
+         cursor: help;
+         text-decoration: underline dotted;
+      }
+
+      footer {
+         margin-top: 30px;
+         background-color: rgba(0, 0, 0, 0.8);
+         padding: 20px;
+         border-radius: 10px;
+         max-width: 800px;
+         margin: 20px auto;
+         text-align: center;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+
+      footer small {
+         color: #bbbbbb;
+      }
+     .chart-container {
+         background-color: rgba(0, 0, 0, 0.7);
+         padding: 30px;
+         margin: 30px auto;
+      }
+      .bar:hover {
+         filter: brightness(1.2);
+         cursor: pointer;
+      }
+      .tooltip {
+         position: absolute;
+         padding: 10px;
+         background: rgba(0, 0, 0, 0.8);
+         border: 1px solid #ffd700;
+         border-radius: 5px;
+         pointer-events: none;
+         color: #fff;
+         font-family: "Times New Roman", serif;
+      }
+   </style>
+</head>
+<body>
+   <h1>
+      欢迎来到<mark><b>
+         <ruby>霍<rt>táo</rt>格<rt>xué</rt>沃<rt>shèng</rt>兹<rt>dì</rt></ruby>
+      </b></mark>魔法学院
+   </h1>
+   <p>
+      以下是本周的
+      <strong>
+         <dfn id="课程表">
+            <abbr title="欢迎你使用时空转换器同时修很多门课噢">课程表（悬浮在这看看）</abbr>
+         </dfn>
+      </strong>
+   </p>
+   <div>
+      <h2>本周课程安排</h2>
+      <dl>
+         <dt>周一</dt>
+         <dd>变形术<br>魔法史</dd>
+         <dt>周二</dt>
+         <dd>占卜术<br>魔药课</dd>
+         <dt>周三</dt>
+         <dd>麻瓜研究<br>黑魔法防御术</dd>
+         <dt>周四</dt>
+         <dd>天文学<br>神奇动物保护课</dd>
+      </dl>
+   </div>
+   <div>
+      <h3>学院分院</h3>
+      <ul>
+         <li>格兰芬多</li>
+         <li>赫奇帕奇</li>
+         <li>拉文克劳</li>
+         <li>斯莱特林</li>
+      </ul>
+   </div>
+   <div>
+      <h4>必备魔法书单</h4>
+      <ol>
+         <li>《初级魔咒指南》</li>
+         <li>《黑魔法防御理论与实践》</li>
+         <li>《魔法药剂学入门》</li>
+      </ol>
+   </div>
+   <div>
+      <h5>校长寄语</h5>
+      <p>魔法不仅是天赋，更是一种责任。</p>
+   </div>
+  <div class="chart-container">
+      <h2>哈利波特系列电影评分</h2>
+      <div id="chart"></div>
+   </div>
+
+   <script>
+      // 动态创建工具提示
+      const tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+      // 设置图表尺寸
+      const width = 800;
+      const height = 400;
+      const margin = { top: 20, right: 20, bottom: 80, left: 40 };
+
+      // 创建SVG画布
+      const svg = d3.select("#chart")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .style("background", "rgba(0, 0, 0, 0.3)")
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      // 加载和处理数据
+      d3.csv("哈利波特数据.csv").then(data => {
+         // 数据预处理
+         const processedData = data
+           .filter(d => d.排名 !== "无")
+           .map(d => ({
+             ...d,
+             评分: +d.评分,
+             评论人数: +d.评论人数.replace(/,/g, ''),
+             片长: +d.片长.replace("分钟", "")
+           }))
+           .sort((a, b) => d3.ascending(a.排名.replace("No.", ""), b.排名.replace("No.", "")));
+
+         // 比例尺设置
+         const x = d3.scaleBand()
+           .domain(processedData.map(d => d.电影名.split(" ")[0]))
+           .range([0, width - margin.left - margin.right])
+           .padding(0.1);
+
+         const y = d3.scaleLinear()
+           .domain([8, d3.max(processedData, d => d.评分)])
+           .range([height - margin.top - margin.bottom, 0]);
+
+         // 绘制柱状图
+         svg.selectAll(".bar")
+           .data(processedData)
+           .enter()
+           .append("rect")
+           .attr("class", "bar")
+           .attr("x", d => x(d.电影名.split(" ")[0]))
+           .attr("y", d => y(d.评分))
+           .attr("width", x.bandwidth())
+           .attr("height", d => height - margin.top - margin.bottom - y(d.评分))
+           .attr("fill", "#ffd700")
+           .on("mouseover", (event, d) => {
+             tooltip.transition()
+               .duration(200)
+               .style("opacity", .9);
+             tooltip.html(`
+               <strong>${d.电影名}</strong><br>
+               评分: ${d.评分}<br>
+               片长: ${d.片长}分钟<br>
+               评论人数: ${d.评论人数.toLocaleString()}
+             `)
+               .style("left", (event.pageX + 10) + "px")
+               .style("top", (event.pageY - 28) + "px");
+           })
+           .on("mouseout", () => {
+             tooltip.transition()
+               .duration(500)
+               .style("opacity", 0);
+           });
+
+         // 添加坐标轴
+         svg.append("g")
+           .attr("transform", `translate(0, ${height - margin.top - margin.bottom})`)
+           .call(d3.axisBottom(x).tickSizeOuter(0))
+           .selectAll("text")
+           .attr("transform", "rotate(-45)")
+           .style("text-anchor", "end")
+           .style("fill", "#fff");
+
+         svg.append("g")
+           .call(d3.axisLeft(y).ticks(5).tickFormat(d => `${d}分`))
+           .style("color", "#fff");
+      });
+   </script>
+   <footer>
+      <h6><em>霍格沃兹校史</em></h6>
+      <p>
+         <q>魔法的本质是发现并创造奇迹<sup>miracles!</sup>。</q> - <cite>《霍格沃兹校史》</cite>
+      </p>
+      <small>&copy; 2024 霍格沃兹魔法学院. 魔法永存！<sub>end!</sub></small>
+   </footer>
+</body>
+</html>

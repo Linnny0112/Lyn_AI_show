@@ -244,23 +244,25 @@
 
          // 添加Y轴标签
          svg.append("text")
-           .attr("transform", "rotate(-90)")
-           .attr("y", -margin.left + 20) // 调整Y轴标签位置
-           .attr("x", -(height / 2 - margin.top))
-           .attr("dy", "1em")
-           .style("text-anchor", "middle")
-           .style("fill", "#fff")
-           .style("font-size", "14px")
-           .text("评分");
+            .attr("transform", "rotate(-90)")
+            .attr("y", -margin.left + 30) // 调整Y轴标签位置
+            .attr("x", -(height / 2 - margin.top))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .style("fill", "#fff")
+            .style("font-size", "14px")
+            .text("评分");
 
          // 添加X轴标签
          svg.append("text")
-           .attr("x", (width - margin.left - margin.right) / 2)
-           .attr("y", height - margin.bottom + 60) // 调整X轴标签位置
-           .style("text-anchor", "middle")
-           .style("fill", "#fff")
-           .style("font-size", "14px")
-           .text("电影名称");
+            .attr("x", (width - margin.left - margin.right) / 2)
+            .attr("y", height - margin.bottom + 80) // 调整X轴标签位置
+            .style("text-anchor", "middle")
+            .style("fill", "#fff")
+            .style("font-size", "14px")
+            .text("电影名称");
+
+        
 
       }).catch(error => {
          console.error("数据加载错误:", error);

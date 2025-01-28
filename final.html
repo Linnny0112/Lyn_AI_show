@@ -150,13 +150,13 @@
    </div>
    
    <!-- 图表容器：电影评分 -->
-   <div class="chart-container">
+   <div class="chart-container" id="movie-rating-chart">
       <h2>哈利波特系列电影评分</h2>
       <!-- SVG 直接放在 .chart-container 中 -->
    </div>
 
    <!-- 图表容器：星级评分占比 -->
-   <div class="chart-container">
+   <div class="chart-container" id="star-rating-chart">
       <h2>哈利波特电影星级评分占比</h2>
       <svg width="100%" height="500"></svg>
    </div>
@@ -185,7 +185,7 @@
       const innerHeight = height - margin.top - margin.bottom; // 内部高度
 
       // 创建SVG画布
-      const svg = d3.select(".chart-container")
+      const svg = d3.select("#movie-rating-chart")
         .append("svg")
         .attr("width", svgWidth) // 使用调整后的宽度
         .attr("height", height)
@@ -278,7 +278,7 @@
             评分占比: [d["5星占比"], d["4星占比"], d["3星占比"], d["2星占比"], d["1星占比"]]
          }));
 
-         const ratingSvg = d3.selectAll(".chart-container").select("svg")
+         const ratingSvg = d3.select("#star-rating-chart").select("svg")
             .attr("width", svgWidth)
             .attr("height", height)
             .append("g")

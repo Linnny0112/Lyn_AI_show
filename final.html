@@ -1,408 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <title>Welcome to Hogwarts!</title>
-   <link rel="shortcut icon" href="bitbug_favicon.ico">
+   <title>哈利波特电影评分占比</title>
    <script src="https://d3js.org/d3.v7.min.js"></script>
    <style>
       body {
-         background-image: url('background.jpg');
-         background-size: cover;
-         background-repeat: no-repeat;
-         background-attachment: fixed;
-         color: #ffffff;
-         font-family: "Times New Roman", serif;
+         font-family: Arial, sans-serif;
+         background-color: #f4f4f4;
          margin: 0;
-         padding: 0;
-         text-align: center; 
-      }
-
-      h1, h2, h3, h4, h5, h6 {
-         margin: 20px 0;
-         text-shadow: 2px 2px 5px #000000;
-      }
-
-      h1 {
-         font-size: 3em;
-         color: #ffd700;
-         text-transform: uppercase; 
-      }
-
-      h2 {
-         font-size: 2.5em;
-         color: #ffcc33;
-      }
-
-      div {
-         background-color: rgba(0, 0, 0, 0.6);
-         border-radius: 10px;
          padding: 20px;
-         margin: 20px auto;
-         max-width: 800px;
-         box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
-         display: inline-block;
-         text-align: center;
       }
-
       .chart-container {
-         width: 90%; /* 占满父容器的宽度 */
-         max-width: 1200px; /* 限制最大宽度 */
-         height: auto; /* 高度自适应 */
-         margin: 0 auto; /* 居中 */
+         width: 90%;
+         max-width: 1200px;
+         margin: 0 auto;
+         background-color: #fff;
          padding: 20px;
-         background-color: rgba(0, 0, 0, 0.7);
-         overflow: visible; /* 确保内容不会被裁剪 */
-         display: flex;
-         justify-content: center; /* 内容居中 */
-         align-items: center;
-         flex-direction: column;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
-
       .bar {
-         fill: #ffcc00;
-         transition: fill 0.3s ease;
+         transition: opacity 0.3s ease;
       }
-
       .bar:hover {
-         fill: #ff9900;
-         cursor: pointer;
+         opacity: 0.7;
       }
-
-      .tooltip {
-         position: absolute;
-         padding: 10px;
-         background: rgba(0, 0, 0, 0.8);
-         border: 1px solid #ffd700;
-         border-radius: 5px;
-         pointer-events: none;
-         color: #fff;
-         font-family: "Times New Roman", serif;
-         font-size: 14px;
-      }
-
       .axis-label {
-         fill: #fff;
-         font-family: "Times New Roman", serif;
          font-size: 14px;
+         fill: #333;
       }
-
-      .axis-line {
-         stroke: #fff;
-         stroke-width: 1;
+      .legend {
+         font-size: 12px;
       }
    </style>
 </head>
 <body>
-   <h1>
-      欢迎来到<mark><b>
-         <ruby>霍<rt>táo</rt>格<rt>xué</rt>沃<rt>shèng</rt>兹<rt>dì</rt></ruby>
-      </b></mark>魔法学院
-   </h1>
-   <p>
-      以下是本周的
-      <strong>
-         <dfn id="课程表">
-            <abbr title="欢迎你使用时空转换器同时修很多门课噢">课程表（悬浮在这看看）</abbr>
-         </dfn>
-      </strong>
-   </p>
-   <div>
-      <h2>本周课程安排</h2>
-      <dl>
-         <dt>周一</dt>
-         <dd>变形术<br>魔法史</dd>
-         <dt>周二</dt>
-         <dd>占卜术<br>魔药课</dd>
-         <dt>周三</dt>
-         <dd>麻瓜研究<br>黑魔法防御术</dd>
-         <dt>周四</dt>
-         <dd>天文学<br>神奇动物保护课</dd>
-      </dl>
-   </div>
-   <div>
-      <h3>学院分院</h3>
-      <ul>
-         <li>格兰芬多</li>
-         <li>赫奇帕奇</li>
-         <li>拉文克劳</li>
-         <li>斯莱特林</li>
-      </ul>
-   </div>
-   <div>
-      <h4>必备魔法书单</h4>
-      <ol>
-         <li>《初级魔咒指南》</li>
-         <li>《黑魔法防御理论与实践》</li>
-         <li>《魔法药剂学入门》</li>
-      </ol>
-   </div>
-   <div>
-      <h5>校长寄语</h5>
-      <p>魔法不仅是天赋，更是一种责任。</p>
-   </div>
-   
-   <!-- 图表容器 -->
    <div class="chart-container">
-      <h2>哈利波特系列电影评分</h2>
-      <!-- SVG 直接放在 .chart-container 中 -->
+      <h2>哈利波特电影评分占比</h2>
+      <svg width="100%" height="500"></svg>
    </div>
-
-
-   <!-- 电影详细信息容器 -->
-<div>
-   <h2>哈利波特系列电影详细信息</h2>
-   
-   <!-- 第一部电影 -->
-   <div>
-      <h3>No.28 哈利·波特与魔法石</h3>
-      <p><strong>片长:</strong> 152分钟</p>
-      <p><strong>评分:</strong> 9.2</p>
-      <p><strong>星级:</strong> 4.5</p>
-      <p><strong>评分占比:</strong></p>
-      <ul>
-         <li>5星: 66.0%</li>
-         <li>4星: 28.1%</li>
-         <li>3星: 5.5%</li>
-         <li>2星: 0.3%</li>
-         <li>1星: 0.1%</li>
-      </ul>
-      <p><strong>简介:</strong> 哈利波特是一个孤儿，从小寄养在姨妈家，受尽欺凌。但就在哈利11岁生日的时候，他意外收到了霍格沃茨学院的入学通知书。哈利从该学院派来接他的巨人海格口中得知，这是一间魔法学院，并得知了自己的身世，原来哈利的父母都是伟大的魔法师，在对付伏地魔的战斗中双双献身，唯有哈利幸免于难。</p>
-   </div>
-
-   <!-- 第二部电影 -->
-   <div>
-      <h3>No.69 哈利·波特与死亡圣器(下)</h3>
-      <p><strong>片长:</strong> 130分钟</p>
-      <p><strong>评分:</strong> 9.0</p>
-      <p><strong>星级:</strong> 4.5</p>
-      <p><strong>评分占比:</strong></p>
-      <ul>
-         <li>5星: 59.9%</li>
-         <li>4星: 31.3%</li>
-         <li>3星: 8.1%</li>
-         <li>2星: 0.6%</li>
-         <li>1星: 0.2%</li>
-      </ul>
-      <p><strong>简介:</strong> 当又一次和伏地魔的意识连通，哈利·波特断定最后一件魂器藏在霍格沃茨，于是和罗恩、赫敏一同返回阴云密布的学校。在好友们的帮助下，他们成功驱逐了斯内普，然而觉察到哈利目的的伏地魔则率领徒众向霍格沃茨逼近。</p>
-   </div>
-
-   <!-- 第三部电影 -->
-   <div>
-      <h3>No.76 哈利·波特与阿兹卡班的囚徒</h3>
-      <p><strong>片长:</strong> 141分钟</p>
-      <p><strong>评分:</strong> 9.0</p>
-      <p><strong>星级:</strong> 4.5</p>
-      <p><strong>评分占比:</strong></p>
-      <ul>
-         <li>5星: 57.9%</li>
-         <li>4星: 33.8%</li>
-         <li>3星: 7.8%</li>
-         <li>2星: 0.4%</li>
-         <li>1星: 0.1%</li>
-      </ul>
-      <p><strong>简介:</strong> 哈利即将在霍格沃兹渡过第三个年头，此时在阿兹塔班却传出恶棍小天狼星越狱的消息。据说小天狼星正是背叛哈利父母的好友，他的教父，而这次小天狼星越狱似乎正是为了找他。</p>
-   </div>
-
-   <!-- 第四部电影 -->
-   <div>
-      <h3>No.89 哈利·波特与密室</h3>
-      <p><strong>片长:</strong> 161分钟</p>
-      <p><strong>评分:</strong> 8.9</p>
-      <p><strong>星级:</strong> 4.5</p>
-      <p><strong>评分占比:</strong></p>
-      <ul>
-         <li>5星: 54.1%</li>
-         <li>4星: 36.8%</li>
-         <li>3星: 8.5%</li>
-         <li>2星: 0.4%</li>
-         <li>1星: 0.1%</li>
-      </ul>
-      <p><strong>简介:</strong> 哈利波特结束了假期，即将回到霍格沃兹继续学习魔法。一个叫多比的家养小精灵警告哈利不要回到霍格沃兹，否则会陷入极大的危险。哈利没有听从多比的劝告，回到了霍格沃兹。</p>
-   </div>
-
-   <!-- 第五部电影 -->
-   <div>
-      <h3>哈利·波特与混血王子</h3>
-      <p><strong>片长:</strong> 153分钟</p>
-      <p><strong>评分:</strong> 8.3</p>
-      <p><strong>星级:</strong> 4.0</p>
-      <p><strong>评分占比:</strong></p>
-      <ul>
-         <li>5星: 40.7%</li>
-         <li>4星: 38.6%</li>
-         <li>3星: 18.2%</li>
-         <li>2星: 2.1%</li>
-         <li>1星: 0.3%</li>
-      </ul>
-      <p><strong>简介:</strong> 哈利·波特与混血王子的故事继续展开，哈利在霍格沃茨的第六年，伏地魔的威胁日益逼近，哈利和邓布利多开始寻找击败伏地魔的方法。</p>
-   </div>
-
-   <!-- 第六部电影 -->
-   <div>
-      <h3>No.121 哈利·波特与火焰杯</h3>
-      <p><strong>片长:</strong> 157分钟</p>
-      <p><strong>评分:</strong> 8.8</p>
-      <p><strong>星级:</strong> 4.5</p>
-      <p><strong>评分占比:</strong></p>
-      <ul>
-         <li>5星: 51.8%</li>
-         <li>4星: 37.8%</li>
-         <li>3星: 9.7%</li>
-         <li>2星: 0.6%</li>
-         <li>1星: 0.1%</li>
-      </ul>
-      <p><strong>简介:</strong> 这是一个不同寻常的学期，魔法学校的盛事：三强争霸赛在霍格沃茨举行。学生们争先报名，希翼获得永恒无上的荣誉。火焰杯在选出三所学校的三名勇士后，竟将未足年龄的哈利也挑选出来。</p>
-   </div>
-
-   <!-- 第七部电影 -->
-   <div>
-      <h3>No.234 哈利·波特与凤凰社</h3>
-      <p><strong>片长:</strong> 138分钟</p>
-      <p><strong>评分:</strong> 8.5</p>
-      <p><strong>星级:</strong> 4.5</p>
-      <p><strong>评分占比:</strong></p>
-      <ul>
-         <li>5星: 44.0%</li>
-         <li>4星: 40.6%</li>
-         <li>3星: 14.2%</li>
-         <li>2星: 1.0%</li>
-         <li>1星: 0.2%</li>
-      </ul>
-      <p><strong>简介:</strong> 逃过摄魂怪的追杀，通过魔法部的审查，哈利终于回到美丽的霍格沃兹。然而这个学期并不轻松，他不仅要完成魔法等级考试，还要应对夜晚的噩梦和黑魔法防御课老师乌姆里奇的打压。</p>
-   </div>
-
-   <!-- 第八部电影 -->
-   <div>
-      <h3>No.220 哈利·波特与死亡圣器(上)</h3>
-      <p><strong>片长:</strong> 146分钟</p>
-      <p><strong>评分:</strong> 8.6</p>
-      <p><strong>星级:</strong> 4.5</p>
-      <p><strong>评分占比:</strong></p>
-      <ul>
-         <li>5星: 44.8%</li>
-         <li>4星: 40.5%</li>
-         <li>3星: 13.3%</li>
-         <li>2星: 1.1%</li>
-         <li>1星: 0.3%</li>
-      </ul>
-      <p><strong>简介:</strong> 邓不利多死后，伏地魔与食死徒入侵魔法学校，魔法部也被伏地魔的爪牙操控，邪恶的阴云笼罩魔法世界上空。在哈利·波特17岁生日之际，凤凰社成员及一众好友护送他回到了凤凰社的据点陋居，然而这立即遭到食死徒毁灭性地打击。</p>
-   </div>
-</div>
-   <footer>
-      <h6><em>霍格沃兹校史</em></h6>
-      <p>
-         <q>魔法的本质是发现并创造奇迹<sup>miracles!</sup>。</q> - <cite>《霍格沃兹校史》</cite>
-      </p>
-      <small>&copy; 2024 霍格沃兹魔法学院. 魔法永存！<sub>end!</sub></small>
-   </footer>
 
    <script>
-      // 动态创建工具提示
-      const tooltip = d3.select("body")
-        .append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
+      // 电影数据
+      const movieData = [
+         { name: "哈利·波特与魔法石", ratings: [66.0, 28.1, 5.5, 0.3, 0.1] },
+         { name: "哈利·波特与死亡圣器(下)", ratings: [59.9, 31.3, 8.1, 0.6, 0.2] },
+         { name: "哈利·波特与阿兹卡班的囚徒", ratings: [57.9, 33.8, 7.8, 0.4, 0.1] },
+         { name: "哈利·波特与密室", ratings: [54.1, 36.8, 8.5, 0.4, 0.1] },
+         { name: "哈利·波特与混血王子", ratings: [40.7, 38.6, 18.2, 2.1, 0.3] },
+         { name: "哈利·波特与火焰杯", ratings: [51.8, 37.8, 9.7, 0.6, 0.1] },
+         { name: "哈利·波特与凤凰社", ratings: [44.0, 40.6, 14.2, 1.0, 0.2] },
+         { name: "哈利·波特与死亡圣器(上)", ratings: [44.8, 40.5, 13.3, 1.1, 0.3] }
+      ];
+
+      // 颜色映射
+      const colorScale = d3.scaleOrdinal()
+         .domain(["5星", "4星", "3星", "2星", "1星"])
+         .range(["#4CAF50", "#8BC34A", "#FFC107", "#FF9800", "#F44336"]);
 
       // 设置图表尺寸
-      const containerWidth = document.querySelector('.chart-container').clientWidth; // 动态宽度
-      const svgWidth = containerWidth * 0.9; // SVG 宽度为容器的 90%
-      const height = 500; // 固定高度
-      const margin = { top: 20, right: 20, bottom: 100, left: 50 }; // 调整边距，底部边距增大以显示电影名称
-      const innerWidth = svgWidth - margin.left - margin.right; // 内部宽度
-      const innerHeight = height - margin.top - margin.bottom; // 内部高度
+      const margin = { top: 40, right: 20, bottom: 60, left: 60 };
+      const width = 800 - margin.left - margin.right;
+      const height = 400 - margin.top - margin.bottom;
 
-      // 创建SVG画布
-      const svg = d3.select(".chart-container")
-        .append("svg")
-        .attr("width", svgWidth) // 使用调整后的宽度
-        .attr("height", height)
-        .style("background", "rgba(0, 0, 0, 0.3)")
-        .style("display", "block")
-        .style("margin", "0 auto")
-        .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
+      // 创建 SVG 画布
+      const svg = d3.select("svg")
+         .attr("width", width + margin.left + margin.right)
+         .attr("height", height + margin.top + margin.bottom)
+         .append("g")
+         .attr("transform", `translate(${margin.left},${margin.top})`);
 
-      // 加载和处理数据
-      d3.csv("哈利波特数据.csv").then(data => {
-         // 数据预处理
-         const processedData = data
-           .filter(d => d.排名 !== "无")
-           .map(d => ({
-             电影名: d.电影名.split(" ")[0], // 只保留中文电影名
-             评分: +d.评分 // 转换为数字
-           }))
-           .sort((a, b) => d3.ascending(a.电影名, b.电影名));
+      // 堆叠数据
+      const stack = d3.stack()
+         .keys(["5星", "4星", "3星", "2星", "1星"])
+         .order(d3.stackOrderNone)
+         .offset(d3.stackOffsetNone);
 
-         console.log("处理后的数据:", processedData);
+      const stackedData = stack(movieData.map(d => ({
+         name: d.name,
+         "5星": d.ratings[0],
+         "4星": d.ratings[1],
+         "3星": d.ratings[2],
+         "2星": d.ratings[3],
+         "1星": d.ratings[4]
+      })));
 
-         // 比例尺设置
-         const x = d3.scaleBand()
-           .domain(processedData.map(d => d.电影名))
-           .range([0, innerWidth])
-           .padding(0.2);
+      // 比例尺
+      const x = d3.scaleBand()
+         .domain(movieData.map(d => d.name))
+         .range([0, width])
+         .padding(0.2);
 
-         const y = d3.scaleLinear()
-           .domain([8, d3.max(processedData, d => d.评分)])
-           .range([innerHeight, 0]);
+      const y = d3.scaleLinear()
+         .domain([0, 100])
+         .range([height, 0]);
 
-         // 绘制柱状图
-         svg.selectAll(".bar")
-           .data(processedData)
-           .enter()
-           .append("rect")
-           .attr("class", "bar")
-           .attr("x", d => x(d.电影名))
-           .attr("width", x.bandwidth())
-           .attr("y", d => y(d.评分))
-           .attr("height", d => innerHeight - y(d.评分))
-           .on("mouseover", (event, d) => {
-             tooltip.transition()
-               .duration(200)
-               .style("opacity", .9);
-             tooltip.html(`
-               <strong>${d.电影名}</strong><br>
-               评分: ${d.评分}
-             `)
-               .style("left", (event.pageX + 10) + "px")
+      // 绘制堆叠条形图
+      svg.selectAll(".category")
+         .data(stackedData)
+         .enter().append("g")
+         .attr("class", "category")
+         .attr("fill", d => colorScale(d.key))
+         .selectAll("rect")
+         .data(d => d)
+         .enter().append("rect")
+         .attr("class", "bar")
+         .attr("x", d => x(d.data.name))
+         .attr("y", d => y(d[1]))
+         .attr("height", d => y(d[0]) - y(d[1]))
+         .attr("width", x.bandwidth())
+         .on("mouseover", (event, d) => {
+            const [start, end] = d;
+            const rating = d3.select(event.target.parentNode).datum().key;
+            const percentage = (end - start).toFixed(1);
+            tooltip.transition().duration(200).style("opacity", 0.9);
+            tooltip.html(`${rating}: ${percentage}%`)
+               .style("left", (event.pageX + 5) + "px")
                .style("top", (event.pageY - 28) + "px");
-           })
-           .on("mouseout", () => {
-             tooltip.transition()
-               .duration(500)
-               .style("opacity", 0);
-           });
+         })
+         .on("mouseout", () => {
+            tooltip.transition().duration(500).style("opacity", 0);
+         });
 
-         // 添加X轴
-         svg.append("g")
-           .attr("transform", `translate(0, ${innerHeight})`)
-           .call(d3.axisBottom(x).tickSizeOuter(0))
-           .selectAll("text")
-           .attr("transform", "rotate(-30)")
-           .style("text-anchor", "end")
-           .style("fill", "#fff")
-           .style("font-size", "12px");
+      // 添加 X 轴
+      svg.append("g")
+         .attr("transform", `translate(0,${height})`)
+         .call(d3.axisBottom(x))
+         .selectAll("text")
+         .attr("transform", "rotate(-30)")
+         .style("text-anchor", "end");
 
-         // 添加Y轴
-         svg.append("g")
-           .call(d3.axisLeft(y).ticks(5).tickFormat(d => `${d}分`))
-           .style("color", "#fff")
-           .selectAll("text")
-           .style("fill", "#fff")
-           .style("font-size", "12px");
+      // 添加 Y 轴
+      svg.append("g")
+         .call(d3.axisLeft(y).ticks(5).tickFormat(d => `${d}%`));
 
-         // 添加X轴标签
-         svg.append("text")
-            .attr("x", innerWidth / 2)
-            .attr("y", innerHeight + 80) // 调整位置以显示电影名称
-            .style("text-anchor", "middle")
-            .style("fill", "#fff")
-            .style("font-size", "14px")
-            .text("电影名称");
+      // 添加图例
+      const legend = svg.selectAll(".legend")
+         .data(colorScale.domain())
+         .enter().append("g")
+         .attr("class", "legend")
+         .attr("transform", (d, i) => `translate(0,${i * 20})`);
 
-      }).catch(error => {
-         console.error("数据加载错误:", error);
-         alert("数据加载失败，请检查控制台日志！");
-      });
+      legend.append("rect")
+         .attr("x", width - 18)
+         .attr("width", 18)
+         .attr("height", 18)
+         .style("fill", colorScale);
+
+      legend.append("text")
+         .attr("x", width - 24)
+         .attr("y", 9)
+         .attr("dy", ".35em")
+         .style("text-anchor", "end")
+         .text(d => d);
+
+      // 添加工具提示
+      const tooltip = d3.select("body").append("div")
+         .attr("class", "tooltip")
+         .style("opacity", 0)
+         .style("position", "absolute")
+         .style("background", "#333")
+         .style("color", "#fff")
+         .style("padding", "5px")
+         .style("border-radius", "3px")
+         .style("font-size", "12px");
    </script>
 </body>
 </html>

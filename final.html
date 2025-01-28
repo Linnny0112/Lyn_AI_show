@@ -5,107 +5,120 @@
    <link rel="shortcut icon" href="bitbug_favicon.ico">
    <script src="https://d3js.org/d3.v7.min.js"></script>
    <style>
-   /* 去掉无序列表的默认圆点 */
-   ul {
-      list-style-type: none; /* 去掉圆点 */
-      padding-left: 0; /* 去掉默认的左内边距 */
-   }
+      /* 去掉无序列表的默认圆点 */
+      ul {
+         list-style-type: none; /* 去掉圆点 */
+         padding-left: 0; /* 去掉默认的左内边距 */
+      }
 
-   /* 保持原有的样式 */
-   body {
-      background-image: url('background.jpg');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      color: #ffffff;
-      font-family: "Times New Roman", serif;
-      margin: 0;
-      padding: 0;
-      text-align: center; 
-   }
+      /* 保持原有的样式 */
+      body {
+         background-image: url('background.jpg');
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-attachment: fixed;
+         color: #ffffff;
+         font-family: "Times New Roman", serif;
+         margin: 0;
+         padding: 0;
+         text-align: center; 
+      }
 
-   h1, h2, h3, h4, h5, h6 {
-      margin: 20px 0;
-      text-shadow: 2px 2px 5px #000000;
-   }
+      h1, h2, h3, h4, h5, h6 {
+         margin: 20px 0;
+         text-shadow: 2px 2px 5px #000000;
+      }
 
-   h1 {
-      font-size: 3em;
-      color: #ffd700;
-      text-transform: uppercase; 
-   }
+      h1 {
+         font-size: 3em;
+         color: #ffd700;
+         text-transform: uppercase; 
+      }
 
-   h2 {
-      font-size: 2.5em;
-      color: #ffcc33;
-   }
+      h2 {
+         font-size: 2.5em;
+         color: #ffcc33;
+      }
 
-   div {
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 10px;
-      padding: 20px;
-      margin: 20px auto;
-      max-width: 800px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
-      display: inline-block;
-      text-align: center;
-   }
+      div {
+         background-color: rgba(0, 0, 0, 0.6);
+         border-radius: 10px;
+         padding: 20px;
+         margin: 20px auto;
+         max-width: 800px;
+         box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+         display: inline-block;
+         text-align: center;
+      }
 
-   .chart-container {
-      width: 90%; /* 占满父容器的宽度 */
-      max-width: 1200px; /* 限制最大宽度 */
-      height: auto; /* 高度自适应 */
-      margin: 0 auto; /* 居中 */
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.7);
-      overflow: visible; /* 确保内容不会被裁剪 */
-      display: flex;
-      justify-content: center; /* 内容居中 */
-      align-items: center;
-      flex-direction: column;
-   }
+      .chart-container {
+         width: 90%; /* 占满父容器的宽度 */
+         max-width: 1200px; /* 限制最大宽度 */
+         height: auto; /* 高度自适应 */
+         margin: 0 auto; /* 居中 */
+         padding: 20px;
+         background-color: rgba(0, 0, 0, 0.7);
+         overflow: visible; /* 确保内容不会被裁剪 */
+         display: flex;
+         justify-content: center; /* 内容居中 */
+         align-items: center;
+         flex-direction: column;
+      }
 
-   .bar {
-      fill: #ffcc00;
-      transition: fill 0.3s ease;
-   }
+      .bar {
+         fill: #ffcc00;
+         transition: fill 0.3s ease;
+      }
 
-   .bar:hover {
-      fill: #ff9900;
-      cursor: pointer;
-   }
+      .bar:hover {
+         fill: #ff9900;
+         cursor: pointer;
+      }
 
-   .tooltip {
-      position: absolute;
-      padding: 10px;
-      background: rgba(0, 0, 0, 0.8);
-      border: 1px solid #ffd700;
-      border-radius: 5px;
-      pointer-events: none;
-      color: #fff;
-      font-family: "Times New Roman", serif;
-      font-size: 14px;
-   }
+      .tooltip {
+         position: absolute;
+         padding: 10px;
+         background: rgba(0, 0, 0, 0.8);
+         border: 1px solid #ffd700;
+         border-radius: 5px;
+         pointer-events: none;
+         color: #fff;
+         font-family: "Times New Roman", serif;
+         font-size: 14px;
+      }
 
-   .axis-label {
-      fill: #fff;
-      font-family: "Times New Roman", serif;
-      font-size: 14px;
-   }
+      .axis-label {
+         fill: #fff;
+         font-family: "Times New Roman", serif;
+         font-size: 14px;
+      }
 
-   .axis-line {
-      stroke: #fff;
-      stroke-width: 1;
-   }
+      .axis-line {
+         stroke: #fff;
+         stroke-width: 1;
+      }
 
-   .stacked-bar {
-      transition: opacity 0.3s ease;
-   }
+      .stacked-bar {
+         transition: opacity 0.3s ease;
+      }
 
-   .stacked-bar:hover {
-      opacity: 0.7;
-   }
-</style>
+      .stacked-bar:hover {
+         opacity: 0.7;
+      }
+
+      .radial-bar {
+         transition: opacity 0.3s ease;
+      }
+
+      .radial-bar:hover {
+         opacity: 0.8;
+         cursor: pointer;
+      }
+
+      .label {
+         pointer-events: none; /* 防止标签干扰鼠标事件 */
+      }
+   </style>
 </head>
 <body>
    <h1>
@@ -158,38 +171,38 @@
 
    <!-- 电影简介部分 -->
    <div>
-   <h2>哈利波特系列电影简介</h2>
-   <ul>
-      <li>
-         <h3>哈利·波特与魔法石 (2001)</h3>
-         <p>哈利波特是一个孤儿，从小寄养在姨妈家，受尽欺凌。但就在哈利11岁生日的时候，他意外收到了霍格沃茨学院的入学通知书。哈利从该学院派来接他的巨人海格口中得知，这是一间魔法学院，并得知了自己的身世，原来哈利的父母都是伟大的魔法师，在对付伏地魔的战斗中双双献身，唯有哈利幸免于难。哈利进入霍格沃茨后，表现出了超乎想象的飞行天赋，得到麦格教授的推荐进入了格兰芬多的魁地奇球队。另一方面，哈利发现霍格沃茨学院内有一股黑暗势力似乎在暗暗滋长，揭开谜团的关键就在有凶恶的三头犬守护的房间内。哈利、罗恩和赫敏三个好朋友决定探个究竟。</p>
-      </li>
-      <li>
-         <h3>哈利·波特与密室 (2002)</h3>
-         <p>哈利波特结束了假期，即将回到霍格沃兹继续学习魔法。一个叫多比的家养小精灵警告哈利不要回到霍格沃兹，否则会陷入极大的危险。哈利没有听从多比的劝告，回到了霍格沃兹。很快，霍格沃兹发生了一连窜怪事:接二连三出现学生被石化，一直找不出原因。而哈利总能听到一种奇怪的声音，从墙壁里传出来。传说，霍格沃兹有一个密室，里面记录着伏地魔年轻时的秘密，只有斯莱特林的人才能打开密室。哈利偶然发现自己能听懂蛇说话，一时传闻是哈利打开了密室。难道多比所指的危险就隐藏在密室？</p>
-      </li>
-      <li>
-         <h3>哈利·波特与阿兹卡班的囚徒 (2004)</h3>
-         <p>哈利即将在霍格沃兹渡过第三个年头，此时在阿兹塔班却传出恶棍小天狼星越狱的消息。据说小天狼星正是背叛哈利父母的好友，他的教父，而这次小天狼星越狱似乎正是为了找他。哈利的心里悄悄的滋生了为父母报仇的想法，期待着小天狼星的出现。新来的魔法老师卢平有着桀骜不驯的个性，与哈利关系很好，教了哈利许多实用的黑魔法防御知识。而此时在他的魔法地图上却出现了一个神秘人物，虫尾巴。偶然的机会下，在尖叫棚屋里集齐了哈利父亲当年的所有好友，卢平、虫尾巴、小天狼星，哈利的魔杖直指向小天狼星，但他发现那罪犯看他的眼神里充满了疼爱……</p>
-      </li>
-      <li>
-         <h3>哈利·波特与火焰杯 (2005)</h3>
-         <p>这是一个不同寻常的学期，魔法学校的盛事：三强争霸赛在霍格沃茨举行。学生们争先报名，希翼获得永恒无上的荣誉。火焰杯在选出三所学校的三名勇士后，竟将未足年龄的哈利也挑选出来。哈利的当选引起其他学生的嫉妒连连，就连铁哥们罗恩也首次和他闹起了别扭，哈利感到孤立无援，还好有教父小天狼星和赫敏一直支持他。可总有些好事者如记者丽塔等着看他的好戏。天知道这场比赛是何等艰辛危险，在龙的眼皮下偷蛋，潜入湖底救人，在迷宫中探险……一不小心，甚至可能付出生命的代价。黑魔王伏地魔的威胁渐渐显现，每一天都险象环生，动人心弦。</p>
-      </li>
-      <li>
-         <h3>哈利·波特与凤凰社 (2007)</h3>
-         <p>逃过摄魂怪的追杀，通过魔法部的审查，哈利终于回到美丽的霍格沃兹。然而这个学期并不轻松，他不仅要完成魔法等级考试，还要应对夜晚的噩梦和黑魔法防御课老师乌姆里奇的打压。在好友的支持下，哈利秘密组建了邓不利多军团，与大家一起练习黑魔法防御术。噩梦中，哈利总是以伏地魔的视角出现，似乎他们之间有着某种神秘的联系。在邓不利多的指示下，哈利向斯内普教授学习封闭术，却鲜有成效。终于在一次噩梦的诱使下，哈利偏执的赶往魔法部营救小天狼星，却不想陷入伏地魔的圈套，引发凤凰社与食死徒之间的正面冲突。在混战中，小天狼星不幸遇难。究竟哈利与伏地魔之间有着怎样的联系？在悲恸中，邓不利多为哈利揭开谜底，哈利还有更长、更艰难的路要走……</p>
-      </li>
-      <li>
-         <h3>哈利·波特与死亡圣器(上) (2010)</h3>
-         <p>邓不利多死后，伏地魔与食死徒入侵魔法学校，魔法部也被伏地魔的爪牙操控，邪恶的阴云笼罩魔法世界上空。在哈利·波特17岁生日之际，凤凰社成员及一众好友护送他回到了凤凰社的据点陋居，然而这立即遭到食死徒毁灭性地打击。哈利和罗恩、赫敏侥幸逃亡，并且按照邓不利多的嘱托继续寻找伏地魔的魂器。死亡的威胁时刻逡巡左右，他们还要面对友情的考验。在寻找摧毁魂器方法的过程中，死亡圣器的面纱也渐渐揭开。与此同时，为了置哈利于死地，伏地魔也在寻找最后一件死亡圣器。最后的决战即将到来……</p>
-      </li>
-      <li>
-         <h3>哈利·波特与死亡圣器(下) (2011)</h3>
-         <p>当又一次和伏地魔的意识连通，哈利·波特断定最后一件魂器藏在霍格沃茨，于是和罗恩、赫敏一同返回阴云密布的学校。在好友们的帮助下，他们成功驱逐了斯内普，然而觉察到哈利目的的伏地魔则率领徒众向霍格沃茨逼近。食死徒、摄魂怪、巨人疯狂涌入这所有着悠久历史的魔法学校，正邪决战旋即爆发，一时间血雨腥风，死伤无数。从斯内普的眼泪中，哈利不仅了解到父辈的故事，也证实了藏缅于他体内最后的秘密。在此之后，他也和伏地魔迎来了最后的对决……本片根据英国作家J.K.罗琳的同名原著改编，也是“哈利·波特”系列影片的完结篇。</p>
-      </li>
-   </ul>
-</div>
+      <h2>哈利波特系列电影简介</h2>
+      <ul>
+         <li>
+            <h3>哈利·波特与魔法石 (2001)</h3>
+            <p>哈利波特是一个孤儿，从小寄养在姨妈家，受尽欺凌。但就在哈利11岁生日的时候，他意外收到了霍格沃茨学院的入学通知书。哈利从该学院派来接他的巨人海格口中得知，这是一间魔法学院，并得知了自己的身世，原来哈利的父母都是伟大的魔法师，在对付伏地魔的战斗中双双献身，唯有哈利幸免于难。哈利进入霍格沃茨后，表现出了超乎想象的飞行天赋，得到麦格教授的推荐进入了格兰芬多的魁地奇球队。另一方面，哈利发现霍格沃茨学院内有一股黑暗势力似乎在暗暗滋长，揭开谜团的关键就在有凶恶的三头犬守护的房间内。哈利、罗恩和赫敏三个好朋友决定探个究竟。</p>
+         </li>
+         <li>
+            <h3>哈利·波特与密室 (2002)</h3>
+            <p>哈利波特结束了假期，即将回到霍格沃兹继续学习魔法。一个叫多比的家养小精灵警告哈利不要回到霍格沃兹，否则会陷入极大的危险。哈利没有听从多比的劝告，回到了霍格沃兹。很快，霍格沃兹发生了一连窜怪事:接二连三出现学生被石化，一直找不出原因。而哈利总能听到一种奇怪的声音，从墙壁里传出来。传说，霍格沃兹有一个密室，里面记录着伏地魔年轻时的秘密，只有斯莱特林的人才能打开密室。哈利偶然发现自己能听懂蛇说话，一时传闻是哈利打开了密室。难道多比所指的危险就隐藏在密室？</p>
+         </li>
+         <li>
+            <h3>哈利·波特与阿兹卡班的囚徒 (2004)</h3>
+            <p>哈利即将在霍格沃兹渡过第三个年头，此时在阿兹塔班却传出恶棍小天狼星越狱的消息。据说小天狼星正是背叛哈利父母的好友，他的教父，而这次小天狼星越狱似乎正是为了找他。哈利的心里悄悄的滋生了为父母报仇的想法，期待着小天狼星的出现。新来的魔法老师卢平有着桀骜不驯的个性，与哈利关系很好，教了哈利许多实用的黑魔法防御知识。而此时在他的魔法地图上却出现了一个神秘人物，虫尾巴。偶然的机会下，在尖叫棚屋里集齐了哈利父亲当年的所有好友，卢平、虫尾巴、小天狼星，哈利的魔杖直指向小天狼星，但他发现那罪犯看他的眼神里充满了疼爱……</p>
+         </li>
+         <li>
+            <h3>哈利·波特与火焰杯 (2005)</h3>
+            <p>这是一个不同寻常的学期，魔法学校的盛事：三强争霸赛在霍格沃茨举行。学生们争先报名，希翼获得永恒无上的荣誉。火焰杯在选出三所学校的三名勇士后，竟将未足年龄的哈利也挑选出来。哈利的当选引起其他学生的嫉妒连连，就连铁哥们罗恩也首次和他闹起了别扭，哈利感到孤立无援，还好有教父小天狼星和赫敏一直支持他。可总有些好事者如记者丽塔等着看他的好戏。天知道这场比赛是何等艰辛危险，在龙的眼皮下偷蛋，潜入湖底救人，在迷宫中探险……一不小心，甚至可能付出生命的代价。黑魔王伏地魔的威胁渐渐显现，每一天都险象环生，动人心弦。</p>
+         </li>
+         <li>
+            <h3>哈利·波特与凤凰社 (2007)</h3>
+            <p>逃过摄魂怪的追杀，通过魔法部的审查，哈利终于回到美丽的霍格沃兹。然而这个学期并不轻松，他不仅要完成魔法等级考试，还要应对夜晚的噩梦和黑魔法防御课老师乌姆里奇的打压。在好友的支持下，哈利秘密组建了邓不利多军团，与大家一起练习黑魔法防御术。噩梦中，哈利总是以伏地魔的视角出现，似乎他们之间有着某种神秘的联系。在邓不利多的指示下，哈利向斯内普教授学习封闭术，却鲜有成效。终于在一次噩梦的诱使下，哈利偏执的赶往魔法部营救小天狼星，却不想陷入伏地魔的圈套，引发凤凰社与食死徒之间的正面冲突。在混战中，小天狼星不幸遇难。究竟哈利与伏地魔之间有着怎样的联系？在悲恸中，邓不利多为哈利揭开谜底，哈利还有更长、更艰难的路要走……</p>
+         </li>
+         <li>
+            <h3>哈利·波特与死亡圣器(上) (2010)</h3>
+            <p>邓不利多死后，伏地魔与食死徒入侵魔法学校，魔法部也被伏地魔的爪牙操控，邪恶的阴云笼罩魔法世界上空。在哈利·波特17岁生日之际，凤凰社成员及一众好友护送他回到了凤凰社的据点陋居，然而这立即遭到食死徒毁灭性地打击。哈利和罗恩、赫敏侥幸逃亡，并且按照邓不利多的嘱托继续寻找伏地魔的魂器。死亡的威胁时刻逡巡左右，他们还要面对友情的考验。在寻找摧毁魂器方法的过程中，死亡圣器的面纱也渐渐揭开。与此同时，为了置哈利于死地，伏地魔也在寻找最后一件死亡圣器。最后的决战即将到来……</p>
+         </li>
+         <li>
+            <h3>哈利·波特与死亡圣器(下) (2011)</h3>
+            <p>当又一次和伏地魔的意识连通，哈利·波特断定最后一件魂器藏在霍格沃茨，于是和罗恩、赫敏一同返回阴云密布的学校。在好友们的帮助下，他们成功驱逐了斯内普，然而觉察到哈利目的的伏地魔则率领徒众向霍格沃茨逼近。食死徒、摄魂怪、巨人疯狂涌入这所有着悠久历史的魔法学校，正邪决战旋即爆发，一时间血雨腥风，死伤无数。从斯内普的眼泪中，哈利不仅了解到父辈的故事，也证实了藏缅于他体内最后的秘密。在此之后，他也和伏地魔迎来了最后的对决……本片根据英国作家J.K.罗琳的同名原著改编，也是“哈利·波特”系列影片的完结篇。</p>
+         </li>
+      </ul>
+   </div>
 
    <!-- 图表容器：电影评分 -->
    <div class="chart-container" id="movie-rating-chart">
@@ -200,6 +213,12 @@
    <!-- 图表容器：星级评分占比 -->
    <div class="chart-container" id="star-rating-chart">
       <h2>哈利波特电影星级评分占比</h2>
+      <svg width="100%" height="500"></svg>
+   </div>
+
+   <!-- 图表容器：电影片长 -->
+   <div class="chart-container" id="movie-duration-chart">
+      <h2>哈利波特系列电影片长</h2>
       <svg width="100%" height="500"></svg>
    </div>
 
@@ -391,6 +410,91 @@
          console.error("数据加载错误:", error);
          alert("数据加载失败，请检查控制台日志！");
       });
+
+      // 电影片长数据
+      const movieDurations = [
+         { name: "哈利·波特与魔法石", duration: 152 },
+         { name: "哈利·波特与密室", duration: 161 },
+         { name: "哈利·波特与阿兹卡班的囚徒", duration: 141 },
+         { name: "哈利·波特与火焰杯", duration: 157 },
+         { name: "哈利·波特与凤凰社", duration: 138 },
+         { name: "哈利·波特与混血王子", duration: 153 },
+         { name: "哈利·波特与死亡圣器(上)", duration: 146 },
+         { name: "哈利·波特与死亡圣器(下)", duration: 130 }
+      ];
+
+      // 设置径向条形图的尺寸
+      const radialWidth = 500; // 图表宽度
+      const radialHeight = 500; // 图表高度
+      const radius = Math.min(radialWidth, radialHeight) / 2; // 半径
+      const innerRadius = radius * 0.4; // 内半径
+
+      // 创建 SVG 画布
+      const radialSvg = d3.select("#movie-duration-chart").select("svg")
+         .attr("width", radialWidth)
+         .attr("height", radialHeight)
+         .append("g")
+         .attr("transform", `translate(${radialWidth / 2},${radialHeight / 2})`);
+
+      // 比例尺设置
+      const x = d3.scaleBand()
+         .domain(movieDurations.map(d => d.name))
+         .range([0, 2 * Math.PI]); // 角度范围
+
+      const y = d3.scaleLinear()
+         .domain([0, d3.max(movieDurations, d => d.duration)])
+         .range([innerRadius, radius]); // 半径范围
+
+      // 颜色比例尺
+      const color = d3.scaleOrdinal()
+         .domain(movieDurations.map(d => d.name))
+         .range(d3.schemeCategory10);
+
+      // 绘制径向条形
+      radialSvg.selectAll(".radial-bar")
+         .data(movieDurations)
+         .enter()
+         .append("path")
+         .attr("class", "radial-bar")
+         .attr("fill", d => color(d.name))
+         .attr("d", d3.arc()
+            .innerRadius(innerRadius)
+            .outerRadius(d => y(d.duration))
+            .startAngle(d => x(d.name))
+            .endAngle(d => x(d.name) + x.bandwidth())
+            .padAngle(0.01) // 条之间的间距
+            .padRadius(innerRadius)
+         )
+         .on("mouseover", (event, d) => {
+            tooltip.transition()
+               .duration(200)
+               .style("opacity", 0.9);
+            tooltip.html(`${d.name}<br>片长: ${d.duration} 分钟`)
+               .style("left", (event.pageX + 10) + "px")
+               .style("top", (event.pageY - 28) + "px");
+         })
+         .on("mouseout", () => {
+            tooltip.transition()
+               .duration(500)
+               .style("opacity", 0);
+         });
+
+      // 添加标签
+      radialSvg.selectAll(".label")
+         .data(movieDurations)
+         .enter()
+         .append("text")
+         .attr("class", "label")
+         .attr("text-anchor", "middle")
+         .attr("alignment-baseline", "middle")
+         .attr("transform", d => {
+            const angle = x(d.name) + x.bandwidth() / 2; // 角度居中
+            const pos = y(d.duration) + 10; // 标签位置
+            return `rotate(${angle * 180 / Math.PI - 90}) translate(${pos},0) rotate(${angle > Math.PI ? 180 : 0})`;
+         })
+         .text(d => d.name)
+         .style("fill", "#fff")
+         .style("font-size", "12px");
    </script>
 </body>
 </html>
